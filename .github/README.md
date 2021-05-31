@@ -1,4 +1,4 @@
-﻿<div align="left">    
+<div align="left">    
 <img src="images/UBind_Logo.png" width = "196" height = "196"/>
 </div>
 
@@ -74,15 +74,18 @@
 ##  2. <a name='-1'></a>使用方法
 ###  2.1. <a name='-1'></a>组件方式
 ####  2.1.1. <a name='-1'></a>常用组件绑定器
-可以使用内置的绑定器组件直接将常见UI组件的属性设置成数据源或者数据目标，具体可用组件参考 [内建组件](#-1)：
+可以使用内置的绑定器组件直接将常见UI组件的属性设置成数据源或者数据目标：
+
 ![Text Binder](images/UBind_Sample_TextBinder.png)
 
 ####  2.1.2. <a name='-1'></a>属性绑定器
 如果需要操作自定义组件，或者未内置提供专用绑定器的组件，则可以使用更为通用的 **PropertyBinder**，简单设置即可绑定任意组件的任意属性字段：
+
 ![Property Binder](images/UBind_Sample_PropertyBinder.png)
 
 ####  2.1.3. <a name='-1'></a>类型绑定器
 如果需要将一个数据类绑定到对应的UI，则只需要使用 **TypeBinder**，指定数据类的程序集和类名，然后将对应属性字段与UI依次绑定，然后在提供数据的逻辑代码中，编码绑定数据源即可：
+
 ``` cs
 public class UBindSamplePlayerData
 {
@@ -92,6 +95,7 @@ public class UBindSamplePlayerData
     public float PlayTime;
 }
 ```
+
 ![Type Binder](images/UBind_Sample_TypeBinder.png)
 
 ``` cs
