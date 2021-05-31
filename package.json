@@ -1,0 +1,35 @@
+{
+  "name": "com.ls9512.ubind",
+  "displayName": "UBind",
+  "description": "UBind 是一个适用于 Unity 的数值绑定组件，用于快速实现UI和逻辑数据的关联绑定。",
+  "version": "1.0.0",
+  "unity": "2019.4.3f1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ls9512/UBind.git"
+  },
+  "author": {
+    "name": "ls9512",
+    "email": "ls9512@vip.qq.com",
+    "url": "https://github.com/ls9512"
+  },
+  "dependencies": {},
+  "keywords": [
+    "UI",
+    "Data",
+    "Framework"
+  ],
+  "samples": [
+    {
+      "displayName": "Samples",
+      "description": "Samples",
+      "path": "Samples~"
+    },
+    {
+      "displayName": "Extension",
+      "description": "TextMeshPro Support",
+      "path": "Extension~"
+    }
+  ]
+}
