@@ -5,12 +5,15 @@ using UnityEngine;
 namespace Aya.DataBinding
 {
     [AddComponentMenu("Data Binding/TMP Input Field Binder")]
-    public class TMPInputFieldBinder : ComponentUpdateBinder<TMP_InputField, string, RuntimeTMPInputFieldBinder>
+    public class TMPInputFieldBinder : ComponentBinder<TMP_InputField, string, RuntimeTMPInputFieldBinder>
     {
     }
 
     public class RuntimeTMPInputFieldBinder : DataBinder<TMP_InputField, string>
     {
+        public override void AddListener() => Target.onValueChanged.AddListener(OnValueChangedCallback);
+        public override void RemoveListener() => Target.onValueChanged.RemoveListener(OnValueChangedCallback);
+
         public override void SetData(string data)
         {
             Target.text = data;

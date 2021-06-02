@@ -2,7 +2,7 @@
 <img src="images/UBind_Logo.png" width = "196" height = "196"/>
 </div>
 
-# UBind
+# UBind ***[Preview]***
 **UBind** 是一个适用于 Unity 的数值绑定组件，用于快速实现UI和逻辑数据的关联绑定。
 
 ![license](https://img.shields.io/github/license/ls9512/UBind)
@@ -28,8 +28,8 @@
 		* 2.1.2. [属性绑定器](#-1)
 		* 2.1.3. [类型绑定器](#-1)
 	* 2.2. [代码方式](#-1)
-		* 2.2.1. [Monobehaviour 自动绑定](#Monobehaviour)
-		* 2.2.2. [MonoBehaviour 手动绑定](#MonoBehaviour)
+		* 2.2.1. [MonoBehaviour 自动绑定](#MonoBehaviour)
+		* 2.2.2. [MonoBehaviour 手动绑定](#MonoBehaviour-1)
 		* 2.2.3. [手动绑定任意对象](#-1)
 * 3. [内建类型](#-1)
 	* 3.1. [Attribute](#Attribute)
@@ -39,8 +39,6 @@
 	* 3.3. [Data Binder](#DataBinder)
 	* 3.4. [Data Converter](#DataConverter)
 	* 3.5. [Component Binder](#ComponentBinder)
-		* 3.5.1. [Component Update Binder](#ComponentUpdateBinder)
-		* 3.5.2. [Component Trigger Binder](#ComponentTriggerBinder)
 	* 3.6. [Runtime Data Binder](#RuntimeDataBinder)
 * 4. [内建组件](#-1)
 * 5. [自定义扩展](#-1)
@@ -111,7 +109,7 @@ public class UBindSampleGameManager
 }
 ```
 ###  2.2. <a name='-1'></a>代码方式
-####  2.2.1. <a name='Monobehaviour'></a>Monobehaviour 自动绑定
+####  2.2.1. <a name='MonoBehaviour'></a>MonoBehaviour 自动绑定
 通过继承 **BindableMonoBehaviour** 获得自动处理属性和字段绑定、解绑的能力。
 使用 **BindValue** Attribute 来标记需要绑定基础类型数据：
 ``` cs
@@ -140,7 +138,7 @@ public class ExanokeMonoBehaviour : BindableMonoBehaviour
 	public ExampleData DataTarget;
 }
 ```
-####  2.2.2. <a name='MonoBehaviour'></a>MonoBehaviour 手动绑定
+####  2.2.2. <a name='MonoBehaviour-1'></a>MonoBehaviour 手动绑定
 对于无法使用继承的自定义 **Monobehaviour** 对象，可以在 **OnEnable / OnDisable**方法中添加如下代码，手动调用 **BindMap** 的绑定和解绑接口，可以获得和自动绑定一样的效果：
 ``` cs
 public class ExanokeMonoBehaviour : MonoBehaviour
@@ -241,16 +239,18 @@ public class ExampleClass
 数据绑定器，用于将数据与具体的对象和其属性进行绑定，可以用于接收和广播数据。
 |属性|描述|
 |-|-|
+|Target|数据目标对象。|
 |Context|数据容器的 Key 值，默认为 Default，无特殊需求可保持默认不设置。|
 |Key|目标数据的 Key 值，是单个数据容器内数据的唯一标识。|
 |Direction|数据的传递方向，Source 标识当前绑定器是数据源，作为数据广播发送者，Destination 标识当前绑定器作为数据接收者。|
+|UpdateType|对于未提供数据变化回调的目标对象，数据采用 Update 模式检测变化是否发生，此时需要指定 Update 的时机。|
 
 ###  3.4. <a name='DataConverter'></a>Data Converter
 当数据源和数据目标的数据类型不同时，会使用与 **(sourceType, targetType)** 对应的数据转换器尝试转换。
 
 默认的转换器 **CommonConverter** 的实现如下，可以通过修改 **DataConverter.Default** 来替换：
 ``` cs
-Convert.ChangeType(object 0data, Type type);
+Convert.ChangeType(object data, Type type);
 ```
 可以按需要使用以下接口提前注册特定类型的自定义转换器：
 ``` cs
@@ -259,16 +259,6 @@ DataConvert.Register(Type sourceType, Type targetType, DataConverter dataConvert
 
 ###  3.5. <a name='ComponentBinder'></a>Component Binder
 数据绑定器的 Unity Component 版本，需要与一个具体的绑定器实现泛型绑定，用于实现组件数据的绑定。
-|属性|描述|
-|-|-|
-|Update|对于未提供数据变化回调的目标对象，数据采用 Update 模式检测变化是否发生，此时需要指定 Update 的时机。|
-|Target|数据来源对象，可以是当前节点或是子节点中的组件。|
-
-####  3.5.1. <a name='ComponentUpdateBinder'></a>Component Update Binder
-目标组件本身未提供数值变动的回调，在不修改组件代码的前提下，需要依赖 Update 来检测数值变化的绑定器基类。
-
-####  3.5.2. <a name='ComponentTriggerBinder'></a>Component Trigger Binder
-目标组件提供了诸如 `OnValueChanged()` 等数值变动的回调方法，则可以使用触发模式的绑定器基类，应当尽可能使用这种方式以优化性能。
 
 ###  3.6. <a name='RuntimeDataBinder'></a>Runtime Data Binder
 

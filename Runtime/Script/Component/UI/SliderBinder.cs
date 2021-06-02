@@ -1,18 +1,19 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Aya.DataBinding
 {
     [AddComponentMenu("Data Binding/Slider Binder")]
-    public class SliderBinder : ComponentTriggerBinder<Slider, float, RuntimeSliderBinder>
+    public class SliderBinder : ComponentBinder<Slider, float, RuntimeSliderBinder>
     {
-        public override Action AddListener => () => Target.onValueChanged.AddListener(OnValueChanged);
-        public override Action RemoveListener => () => Target.onValueChanged.RemoveListener(OnValueChanged);
+        
     }
 
     public class RuntimeSliderBinder : DataBinder<Slider, float>
     {
+        public override void AddListener() => Target.onValueChanged.AddListener(OnValueChangedCallback);
+        public override void RemoveListener() => Target.onValueChanged.RemoveListener(OnValueChangedCallback);
+
         public override void SetData(float data)
         {
             Target.value = data;

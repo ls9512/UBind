@@ -5,6 +5,8 @@ namespace Aya.DataBinding
 {
     public class RuntimePropertyBinder : RuntimePropertyBinder<object>
     {
+        public override bool NeedUpdate => true;
+
         public override Type TargetType => Target.GetType();
 
         public RuntimePropertyBinder(string context, string key, DataDirection direction, object target, PropertyInfo propertyInfo, FieldInfo fieldInfo)
@@ -25,18 +27,6 @@ namespace Aya.DataBinding
             {
                 Property = fieldInfo.Name;
             }
-        }
-
-        public override void Bind()
-        {
-            base.Bind();
-            BindUpdater.Ins.Add(this);
-        }
-
-        public override void UnBind()
-        {
-            base.UnBind();
-            BindUpdater.Ins.Remove(this);
         }
     }
 }

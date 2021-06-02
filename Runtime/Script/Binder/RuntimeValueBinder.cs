@@ -4,6 +4,8 @@ namespace Aya.DataBinding
 {
     public class RuntimeValueBinder<T> : DataBinder<T>
     {
+        public override bool NeedUpdate => true;
+
         public Func<T> Getter;
         public Action<T> Setter;
 
@@ -32,18 +34,6 @@ namespace Aya.DataBinding
         public override T GetData()
         {
             return Getter();
-        }
-
-        public override void Bind()
-        {
-            base.Bind();
-            BindUpdater.Ins.Add(this);
-        }
-
-        public override void UnBind()
-        {
-            base.UnBind();
-            BindUpdater.Ins.Remove(this);
         }
     }
 }

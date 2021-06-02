@@ -2,14 +2,6 @@
 
 namespace Aya.DataBinding
 {
-    public enum UpdateType
-    {
-        None = -1,
-        Update = 0,
-        LateUpdate = 1,
-        FixedUpdate = 2,
-    }
-
     public abstract class ComponentBinder<TComponent, TValue, TDataBinder> : MonoBehaviour
         where TDataBinder : DataBinder<TComponent, TValue>, new()
         where TComponent : Component
@@ -20,13 +12,13 @@ namespace Aya.DataBinding
         public UpdateType UpdateType = UpdateType.Update;
         public TComponent Target;
 
-        public abstract bool NeedUpdate { get; }
-
         public TDataBinder DataBinder { get; internal set; }
         public DataContext DataContext => DataBinder?.DataContext;
 
         public bool IsDestination => Direction == DataDirection.Target || Direction == DataDirection.Both;
         public bool IsSource => Direction == DataDirection.Source || Direction == DataDirection.Both;
+
+        public virtual bool NeedUpdate { get; set; } = false;
 
         public virtual void Awake()
         {
@@ -57,6 +49,7 @@ namespace Aya.DataBinding
                 TargetType = typeof(TComponent),
                 Context = Context,
                 Direction = Direction,
+                UpdateType = UpdateType,
                 Key = Key
             };
 

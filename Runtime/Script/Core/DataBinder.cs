@@ -10,12 +10,23 @@ namespace Aya.DataBinding
         Both = 2,
     }
 
+    public enum UpdateType
+    {
+        None = -1,
+        Update = 0,
+        LateUpdate = 1,
+        FixedUpdate = 2,
+    }
+
     public abstract class DataBinder
     {
         public string Context = DataContext.Default;
         public string Key;
         public DataDirection Direction = DataDirection.Target;
-        
+
+        // Only work when NeedUpdate is true
+        public UpdateType UpdateType = UpdateType.Update;
+
         #region Reflection Cache
 
         public virtual Type DataType { get; internal set; }
@@ -59,6 +70,8 @@ namespace Aya.DataBinding
 
         public DataContext DataContext { get; internal set; }
 
+        public virtual bool NeedUpdate => false;
+
         public virtual void UpdateSource()
         {
         }
@@ -67,13 +80,40 @@ namespace Aya.DataBinding
         {
         }
 
+        public virtual void AddListener()
+        {
+        }
+
         public virtual void Bind()
         {
+            if (NeedUpdate)
+            {
+                BindUpdater.Ins.Add(this);
+            }
+            else
+            {
+                AddListener();
+            }
+
             DataContext.Bind(this);
         }
 
+        public virtual void RemoveListener()
+        {
+        }
+
+
         public virtual void UnBind()
         {
+            if (NeedUpdate)
+            {
+                BindUpdater.Ins.Remove(this);
+            }
+            else
+            {
+                RemoveListener();
+            }
+
             DataContext.UnBind(this);
         }
 

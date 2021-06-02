@@ -1,18 +1,19 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Aya.DataBinding
 {
     [AddComponentMenu("Data Binding/Scrollbar Binder")]
-    public class ScrollbarBinder : ComponentTriggerBinder<Scrollbar, float, RuntimeScrollbarBinder>
+    public class ScrollbarBinder : ComponentBinder<Scrollbar, float, RuntimeScrollbarBinder>
     {
-        public override Action AddListener => () => Target.onValueChanged.AddListener(OnValueChanged);
-        public override Action RemoveListener => () => Target.onValueChanged.RemoveListener(OnValueChanged);
+        
     }
 
     public class RuntimeScrollbarBinder : DataBinder<Scrollbar, float>
     {
+        public override void AddListener() => Target.onValueChanged.AddListener(OnValueChangedCallback);
+        public override void RemoveListener() => Target.onValueChanged.RemoveListener(OnValueChangedCallback);
+
         public override void SetData(float data)
         {
             Target.value = data;

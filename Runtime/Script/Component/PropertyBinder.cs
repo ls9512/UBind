@@ -6,8 +6,10 @@ using UnityEngine;
 namespace Aya.DataBinding
 {
     [AddComponentMenu("Data Binding/Property Binder")]
-    public class PropertyBinder : ComponentUpdateBinder<Component, object, RuntimePropertyBinder<Component>>
+    public class PropertyBinder : ComponentBinder<Component, object, RuntimePropertyBinder<Component>>
     {
+        public override bool NeedUpdate => true;
+
         public string Property;
 
         public override RuntimePropertyBinder<Component> CreateDataBinder()
@@ -34,6 +36,8 @@ namespace Aya.DataBinding
     public class RuntimePropertyBinder<TTarget> : DataBinder<TTarget, object>
     {
         public string Property;
+
+        public override bool NeedUpdate => true;
 
         public FieldInfo FiledInfo
         {

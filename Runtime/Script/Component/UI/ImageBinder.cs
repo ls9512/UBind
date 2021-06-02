@@ -4,12 +4,15 @@ using UnityEngine.UI;
 namespace Aya.DataBinding
 {
     [AddComponentMenu("Data Binding/Image Binder")]
-    public class ImageBinder : ComponentUpdateBinder<Image, Sprite, RuntimeImageBinder>
+    public class ImageBinder : ComponentBinder<Image, Sprite, RuntimeImageBinder>
     {
+        public override bool NeedUpdate => true;
     }
 
     public class RuntimeImageBinder : DataBinder<Image, Sprite>
     {
+        public override bool NeedUpdate => true;
+
         public override void SetData(Sprite data)
         {
             Target.sprite = data;

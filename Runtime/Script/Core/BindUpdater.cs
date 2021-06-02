@@ -77,6 +77,25 @@ namespace Aya.DataBinding
             SyncUpdateList();
             foreach (var dataBinder in UpdateSourceList)
             {
+                if (dataBinder.UpdateType != UpdateType.Update) continue;
+                dataBinder.UpdateSource();
+            }
+        }
+
+        public void LateUpdate()
+        {
+            foreach (var dataBinder in UpdateSourceList)
+            {
+                if (dataBinder.UpdateType != UpdateType.LateUpdate) continue;
+                dataBinder.UpdateSource();
+            }
+        }
+
+        public void FixedUpdate()
+        {
+            foreach (var dataBinder in UpdateSourceList)
+            {
+                if (dataBinder.UpdateType != UpdateType.FixedUpdate) continue;
                 dataBinder.UpdateSource();
             }
         }

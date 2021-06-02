@@ -47,6 +47,11 @@ namespace Aya.DataBinding
 
         public abstract T GetData();
 
+        public virtual void OnValueChangedCallback(T data)
+        {
+            UpdateSource();
+        }
+
         public override void Broadcast()
         {
             if (!IsSource) return;

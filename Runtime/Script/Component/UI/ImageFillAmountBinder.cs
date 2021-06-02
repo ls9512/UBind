@@ -4,12 +4,15 @@ using UnityEngine.UI;
 namespace Aya.DataBinding
 {
     [AddComponentMenu("Data Binding/Image FillAmount Binder")]
-    public class ImageFillAmountBinder : ComponentUpdateBinder<Image, float, RuntimeImageFillAmountBinder>
+    public class ImageFillAmountBinder : ComponentBinder<Image, float, RuntimeImageFillAmountBinder>
     {
+        public override bool NeedUpdate => true;
     }
 
     public class RuntimeImageFillAmountBinder : DataBinder<Image, float>
     {
+        public override bool NeedUpdate => true;
+
         public override void SetData(float data)
         {
             Target.fillAmount = data;

@@ -5,12 +5,15 @@ using UnityEngine;
 namespace Aya.DataBinding
 {
     [AddComponentMenu("Data Binding/TMP Text Binder (UI)")]
-    public class TMPTextUIBinder : ComponentUpdateBinder<TextMeshProUGUI, string, RuntimeTMPTextUIBinder>
+    public class TMPTextUIBinder : ComponentBinder<TextMeshProUGUI, string, RuntimeTMPTextUIBinder>
     {
+        public override bool NeedUpdate => true;
     }
 
     public class RuntimeTMPTextUIBinder : DataBinder<TextMeshProUGUI, string>
     {
+        public override bool NeedUpdate => true;
+
         public override void SetData(string data)
         {
             Target.text = data;

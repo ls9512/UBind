@@ -1,18 +1,19 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Aya.DataBinding
 {
     [AddComponentMenu("Data Binding/Toggle Binder")]
-    public class ToggleBinder : ComponentTriggerBinder<Toggle, bool, ToggleDataBinder>
+    public class ToggleBinder : ComponentBinder<Toggle, bool, ToggleDataBinder>
     {
-        public override Action AddListener => () => Target.onValueChanged.AddListener(OnValueChanged);
-        public override Action RemoveListener => () => Target.onValueChanged.RemoveListener(OnValueChanged);
+
     }
 
     public class ToggleDataBinder : DataBinder<Toggle, bool>
     {
+        public override void AddListener() => Target.onValueChanged.AddListener(OnValueChangedCallback);
+        public override void RemoveListener() => Target.onValueChanged.RemoveListener(OnValueChangedCallback);
+
         public override void SetData(bool data)
         {
             Target.isOn = data;
