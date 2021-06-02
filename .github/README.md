@@ -284,6 +284,7 @@ DataConvert.Register(Type sourceType, Type targetType, DataConverter dataConvert
 |Slider Binder|Slider|value|float|
 |Scrollbar Binder|Scrollbar|value|float|
 |Dropdown Binder|Dropdown|value|int|
+|Dropdown List Binder|Dropdown|options|List<Dropdown.OptionData>|
 |CanvasGroup Binder|CanvasGroup|alpha|float|
 |Toggle Binder|Toggle|value|bool|
 |Color Binder|Graphic|color|Color|

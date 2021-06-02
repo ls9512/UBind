@@ -2,7 +2,7 @@
 
 namespace Aya.DataBinding
 {
-    public abstract class DataBinderList<TList> : DataBinder<TList> where TList : IList
+    public abstract class DataBinderList<TTarget, TList> : DataBinder<TTarget, TList> where TList : IList
     {
         public override bool CheckEquals(TList data1, TList data2)
         {

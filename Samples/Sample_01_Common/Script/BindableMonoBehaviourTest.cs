@@ -1,5 +1,8 @@
-﻿using Aya.DataBinding;
+﻿using System.Collections.Generic;
+using Aya.DataBinding;
+using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Aya.Sample
 {
@@ -27,6 +30,10 @@ namespace Aya.Sample
             base.OnDisable();
             _runtimeValueBinder.UnBind();
             _runtimeValueBinder = null;
+        }
+
+        public void Update()
+        {
         }
     }
 }

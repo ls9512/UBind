@@ -10,6 +10,7 @@ namespace Aya.DataBinding
         public RuntimeValueBinder(string context, string key, Func<T> getter) : this(context, key, DataDirection.Source, getter, null)
         {
         }
+
         public RuntimeValueBinder(string context, string key, Action<T> setter) : this(context, key, DataDirection.Target, null, setter)
         {
         }

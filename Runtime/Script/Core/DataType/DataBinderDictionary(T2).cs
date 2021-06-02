@@ -2,7 +2,7 @@
 
 namespace Aya.DataBinding
 {
-    public abstract class DataBinderDictionary<TDictionary> : DataBinder<TDictionary> where TDictionary : IDictionary
+    public abstract class DataBinderDictionary<TTarget, TDictionary> : DataBinder<TTarget, TDictionary> where TDictionary : IDictionary
     {
         public override bool CheckEquals(TDictionary data1, TDictionary data2)
         {
