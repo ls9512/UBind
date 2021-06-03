@@ -312,7 +312,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &757761685
 GameObject:
@@ -665,7 +665,7 @@ RectTransform:
   m_Children:
   - {fileID: 1965111894}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -755,7 +755,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1769702159
+--- !u!1 &1728913403
 GameObject:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -763,8 +763,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1769702161}
-  - component: {fileID: 1769702160}
+  - component: {fileID: 1728913405}
+  - component: {fileID: 1728913404}
   m_Layer: 0
   m_Name: UndoProRecords
   m_TagString: Untagged
@@ -772,13 +772,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1769702160
+--- !u!114 &1728913404
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1769702159}
+  m_GameObject: {fileID: 1728913403}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efa53029e0a62304caf81173265515b9, type: 3}
@@ -791,281 +791,9 @@ MonoBehaviour:
     - Selection Change
     - Selection Change
     - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Create Text
-    - Add Text
-    - Create Canvas
-    - Add Canvas
-    - Add CanvasScaler
-    - Add GraphicRaycaster
-    - Create Text
-    - Create EventSystem
-    - Add EventSystem
-    - Add StandaloneInputModule
-    - Create EventSystem
-    - 
-    - 
-    - 
-    - Selection Change
-    - Selection Change
-    - Delete Game Objects
-    - Delete Game Objects
-    - Delete Game Objects
-    - Selection Change
-    - Change m_BlockingMask on Canvas
-    - Selection Change
-    - Create GameObject
-    - Create GameObject
-    - Selection Change
-    - GameObject Parenting
-    - GameObject Parenting
-    - Rename GameObject
-    - Inspector
-    - Inspector
     - Inspector
     - Selection Change
     - Selection Change
-    - Rename PlayerInfo
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Delete Game Objects
-    - Delete Game Objects
-    - Delete Game Objects
-    - Selection Change
-    - Create GameObject
-    - Reparenting
-    - Reparenting
-    - Transform parenting workaround
-    - Add RectTransform
-    - Transform parenting workaround 2
-    - Transform parenting workaround 2
-    - Create GameObject
-    - Selection Change
-    - Rename GameObject
-    - Rename UI_PlayerInfdo
-    - Change Rectangle Anchors
-    - Inspector
-    - Inspector
-    - Inspector
-    - Inspector
-    - Create Text
-    - Add Text
-    - 
-    - 
-    - 
-    - Create Text
-    - Selection Change
-    - Rename Text
-    - Selection Change
-    - Paste Text_Name
-    - Set Sibling Index
-    - Rename Text_Name (1)
-    - Selection Change
-    - Paste Text_Exp
-    - Set Sibling Index
-    - Rename Text_Exp (1)
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Create Slider
-    - Add Slider
-    - Create Background
-    - Add Image
-    - 
-    - 
-    - Create Fill Area
-    - Add RectTransform
-    - 
-    - 
-    - Create Fill
-    - Add Image
-    - 
-    - 
-    - Create Handle Slide Area
-    - Add RectTransform
-    - 
-    - 
-    - Create Handle
-    - Add Image
-    - 
-    - 
-    - Driving RectTransform
-    - 
-    - 
-    - Create Slider
-    - Selection Change
-    - Rename Slider
-    - Selection Change
-    - Text_PlayerTime Parenting
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Inspector
-    - Inspector
-    - Resize
-    - Horizontal Alignment
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Horizontal Alignment
-    - Vertical Alignment
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Move
-    - Move
-    - Selection Change
-    - Move
-    - Move
-    - Selection Change
-    - Move
-    - Selection Change
-    - Driving RectTransform
-    - Driving RectTransform
-    - Driving RectTransform
-    - Selection Change
-    - Selection Change
-    - Inspector
-    - Selection Change
-    - Inspector
-    - Selection Change
-    - Selection Change
-    - Inspector
-    - Rename Text_PlayerTime
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Add TypeBinder
-    - Inspector
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - EventSystem Parenting
-    - EventSystem Parenting
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - EventSystem Parenting
-    - EventSystem Parenting
-    - Selection Change
-    - Selection Change
-    - EventSystem Parenting
-    - Selection Change
-    - Create GameObject
-    - Create GameObject
-    - Selection Change
-    - Rename GameObject
-    - Inspector
-    - Inspector
-    - Inspector
-    - Drag MonoBehaviour
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Change ReplaceDataList.[0].ReplaceStr on UBind_Exporter
-    - Change ExportDataList.[0].File on UBind_Exporter
-    - Change ExportDataList.[1].File on UBind_Exporter
-    - Change ExportDataList.[2].File on UBind_Exporter
-    - Change ExportDataList.[1].File on UBind_Exporter
-    - Change ExportDataList.[0].File on UBind_Exporter
-    - Change ExportDataList.[2].File on UBind_Exporter
-    - Change ExportDataList.[2].Assets.[0] on UBind_Exporter
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Change ExportDataList.[2].Dependencies on UBind_Exporter
-    - Change ExportDataList.[2].Dependencies on UBind_Exporter
-    - Change ExportDataList.[2].Options on UBind_Exporter
-    - Change ExportDataList.[1].Assets.[0] on UBind_Exporter
-    - Change ExportDataList.[0].Assets.[1] on UBind_Exporter
-    - Change ExportDataList.[0].Assets.[0] on UBind_Exporter
-    - Change ExportDataList.[0].Assets.[2] on UBind_Exporter
-    - 'Change ExportDataList.[0].Assets on UBind_Exporter: Collection modification'
-    - Change ExportDataList.[0].Assets.[3] on UBind_Exporter
-    - 'Change ExportDataList.[0].Assets on UBind_Exporter: Collection modification'
-    - 'Change ExportDataList.[0].Assets on UBind_Exporter: Collection modification'
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Inspector
-    - Inspector
-    - Inspector
     - Inspector
     - Inspector
     - Inspector
@@ -1078,40 +806,19 @@ MonoBehaviour:
     - Selection Change
     - Selection Change
     - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Inspector
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
-    - Selection Change
---- !u!4 &1769702161
+--- !u!4 &1728913405
 Transform:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1769702159}
+  m_GameObject: {fileID: 1728913403}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1780874388
 GameObject:
@@ -1177,7 +884,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1809763289
 GameObject:
@@ -1461,7 +1168,7 @@ MonoBehaviour:
   Key: PlayerData
   Direction: 1
   Assembly: Aya.DataBinding
-  Type: Aya.Example.UBindSamplePlayerData
+  Type: Aya.Sample.UBindSamplePlayerData
   Map:
   - Property: Name
     Target: {fileID: 1916309534}

@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using Aya.DataBinding;
-using NUnit.Framework;
+﻿using Aya.DataBinding;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Aya.Sample
 {

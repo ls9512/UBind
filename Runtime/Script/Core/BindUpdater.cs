@@ -35,8 +35,8 @@ namespace Aya.DataBinding
 
         #endregion
 
-        public HashSet<DataBinder> AddList = new HashSet<DataBinder>();
-        public HashSet<DataBinder> RemoveList = new HashSet<DataBinder>();
+        internal HashSet<DataBinder> AddList = new HashSet<DataBinder>();
+        internal HashSet<DataBinder> RemoveList = new HashSet<DataBinder>();
         public HashSet<DataBinder> UpdateSourceList = new HashSet<DataBinder>();
 
         public void Add(DataBinder dataBinder)
