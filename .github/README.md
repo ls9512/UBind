@@ -3,7 +3,7 @@
 </div>
 
 # UBind ***[Preview]***
-**UBind** 是一个适用于 Unity 的数值绑定组件，用于快速实现UI和逻辑数据的关联绑定。
+**UBind** is a value binding component for Unity, which is used to quickly realize the association binding between UI and logical data.
 
 ![license](https://img.shields.io/github/license/ls9512/UBind)
 [![openupm](https://img.shields.io/npm/v/com.ls9512.ubind?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.ls9512.ubind/)
@@ -21,20 +21,20 @@
 [[中文文档]](README_CN.md)
 
 <!-- vscode-markdown-toc -->
-* 1. [特性](#)
-* 2. [使用方法](#-1)
-	* 2.1. [组件方式](#-1)
-		* 2.1.1. [常用组件绑定器](#-1)
-		* 2.1.2. [属性绑定器](#-1)
-		* 2.1.3. [类型绑定器](#-1)
-	* 2.2. [代码方式](#-1)
-		* 2.2.1. [MonoBehaviour 自动绑定](#MonoBehaviour)
-		* 2.2.2. [MonoBehaviour 手动绑定](#MonoBehaviour-1)
-		* 2.2.3. [手动绑定任意对象](#-1)
-* 3. [工作模式](#-1)
-	* 3.1. [被动回调模式](#-1)
-	* 3.2. [主动更新模式](#-1)
-* 4. [内建类型](#-1)
+* 1. [ Features](#Features)
+* 2. [How to use](#Howtouse)
+	* 2.1. [ Component](#Component)
+		* 2.1.1. [Common Component Binder](#CommonComponentBinder)
+		* 2.1.2. [Property Binder](#PropertyBinder)
+		* 2.1.3. [Type Binder](#TypeBinder)
+	* 2.2. [Programming](#Programming)
+		* 2.2.1. [MonoBehaviour automatic binding](#MonoBehaviourautomaticbinding)
+		* 2.2.2. [MonoBehaviour manual binding](#MonoBehaviourmanualbinding)
+		* 2.2.3. [Manually bind any objects](#Manuallybindanyobjects)
+* 3. [ Work mode](#Workmode)
+	* 3.1. [ Passive callback mode](#Passivecallbackmode)
+	* 3.2. [Active update mode](#Activeupdatemode)
+* 4. [Built-in type](#Built-intype)
 	* 4.1. [Attribute](#Attribute)
 		* 4.1.1. [Bind Value Attribute](#BindValueAttribute)
 		* 4.1.2. [Bind Type Attribute](#BindTypeAttribute)
@@ -44,14 +44,14 @@
 	* 4.5. [Component Binder](#ComponentBinder)
 	* 4.6. [Bind Updater](#BindUpdater)
 	* 4.7. [Bind Map](#BindMap)
-* 5. [内建组件](#-1)
-* 6. [自定义扩展](#-1)
+* 5. [Built-in components](#Built-incomponents)
+* 6. [Custom extension](#Customextension)
 	* 6.1. [Custom Data Binder](#CustomDataBinder)
 	* 6.2. [Custom Component Binder](#CustomComponentBinder)
 	* 6.3. [Custom Binder Editor](#CustomBinderEditor)
 	* 6.4. [Custom Data Converter](#CustomDataConverter)
-* 7. [注意事项](#-1)
-* 8. [扩展 -- TextMeshPro](#--TextMeshPro)
+* 7. [Notes](#Notes)
+* 8. [Extension -- TextMeshPro](#Extension--TextMeshPro)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -61,32 +61,32 @@
 
 ***
 
-##  1. <a name=''></a>特性
-* 支持双向绑定
-* 支持多数据源和多目标对象
-* 支持任意组件的任意属性和字段绑定
-* 支持数据源和目标数据类型不同时的自动类型转换
-* 提供大量内置组件的常用属性绑定器
-* 任意运行时对象的属性和字段绑定
-* 提供数据容器以按组划分数据使用域
-* 可扩展自定义数据绑定器、自定义类型转换器
+##  1. <a name='Features'></a> Features
+* Support two-way binding
+* Support multiple data sources and multiple target objects
+* Support any property and field binding of any component
+* Support automatic type conversion when the data source and target data type are different
+* Provide a large number of commonly used property binders for built-in components
+* Binding of properties and fields of any runtime object
+* Provide data containers to divide data usage domains by groups
+* Extensible custom data binder, custom type converter
 
 *** 
 
-##  2. <a name='-1'></a>使用方法
-###  2.1. <a name='-1'></a>组件方式
-####  2.1.1. <a name='-1'></a>常用组件绑定器
-可以使用内置的绑定器组件直接将常见UI组件的属性设置成数据源或者数据目标：
+##  2. <a name='Howtouse'></a>How to use
+###  2.1. <a name='Component'></a> Component
+####  2.1.1. <a name='CommonComponentBinder'></a>Common Component Binder
+You can use the built-in binder component to directly set the properties of common UI components as data sources or data targets:
 
 ![Text Binder](images/UBind_Sample_TextBinder.png)
 
-####  2.1.2. <a name='-1'></a>属性绑定器
-如果需要操作自定义组件，或者未内置提供专用绑定器的组件，则可以使用更为通用的 **PropertyBinder**，简单设置即可绑定任意组件的任意属性字段：
+####  2.1.2. <a name='PropertyBinder'></a>Property Binder
+If you need to operate a custom component, or a component that does not provide a dedicated binder, you can use the more general **PropertyBinder**, and you can bind any property field of any component with a simple setting:
 
 ![Property Binder](images/UBind_Sample_PropertyBinder.png)
 
-####  2.1.3. <a name='-1'></a>类型绑定器
-如果需要将一个数据类绑定到对应的UI，则只需要使用 **TypeBinder**，指定数据类的程序集和类名，然后将对应属性字段与UI依次绑定，然后在提供数据的逻辑代码中，编码绑定数据源即可：
+####  2.1.3. <a name='TypeBinder'></a>Type Binder
+If you need to bind a data class to the corresponding UI, you only need to use **TypeBinder**, specify the assembly and class name of the data class, and then bind the corresponding properties and fields to the UI in turn, and then provide the data logic In the code, the code binds the data source:
 
 ``` cs
 public class UBindSamplePlayerData
@@ -112,10 +112,11 @@ public class UBindSampleGameManager
     }
 }
 ```
-###  2.2. <a name='-1'></a>代码方式
-####  2.2.1. <a name='MonoBehaviour'></a>MonoBehaviour 自动绑定
-通过继承 **BindableMonoBehaviour** 获得自动处理属性和字段绑定、解绑的能力。
-使用 **BindValue** Attribute 来标记需要绑定基础类型数据：
+###  2.2. <a name='Programming'></a>Programming
+####  2.2.1. <a name='MonoBehaviourautomaticbinding'></a>MonoBehaviour automatic binding
+By inheriting **BindableMonoBehaviour**, the ability to automatically handle the binding and unbinding of properties and fields is obtained.
+
+Use **BindValue** Attribute to mark the need to bind basic type data:
 ``` cs
 public class ExampleMonoBehaviour : BindableMonoBehaviour
 {
@@ -126,7 +127,7 @@ public class ExampleMonoBehaviour : BindableMonoBehaviour
 	public string ValueTarget;
 }
 ```
-使用 **BindType** Attribute 来标记需要绑定类和结构体数据：
+Use **BindType** Attribute to mark the need to bind class and structure data:
 ``` cs
 public class ExampleData
 {
@@ -142,8 +143,8 @@ public class ExanokeMonoBehaviour : BindableMonoBehaviour
 	public ExampleData DataTarget;
 }
 ```
-####  2.2.2. <a name='MonoBehaviour-1'></a>MonoBehaviour 手动绑定
-对于无法使用继承的自定义 **Monobehaviour** 对象，可以在 **OnEnable / OnDisable**方法中添加如下代码，手动调用 **BindMap** 的绑定和解绑接口，可以获得和自动绑定一样的效果：
+####  2.2.2. <a name='MonoBehaviourmanualbinding'></a>MonoBehaviour manual binding
+For custom **MonoBehaviour** objects that cannot be inherited, you can add the following code in the **OnEnable / OnDisable** method to manually call the binding and unbinding interfaces of **BindMap**, and you can get the same as automatic binding effect:
 ``` cs
 public class ExanokeMonoBehaviour : MonoBehaviour
 {
@@ -164,8 +165,8 @@ public class ExanokeMonoBehaviour : MonoBehaviour
 	}
 }
 ```
-####  2.2.3. <a name='-1'></a>手动绑定任意对象
-通过调用 **UBind** 的多种重载接口，可以实现对运行时的数值、属性、字段、类对象、结构体对象进行绑定，如果需要在特定时间进行绑定和解绑操作，则需要自行缓存返回的 **DataBinder** 对象：
+####  2.2.3. <a name='Manuallybindanyobjects'></a>Manually bind any objects
+By calling various overloaded interfaces of **UBind**, you can bind values, attributes, fields, class objects, and structure objects at runtime. If you need to bind and unbind at a specific time, you need Cache the returned **DataBinder** object by itself:
 ``` cs
 public class ExampleData
 {
@@ -205,7 +206,7 @@ public class ExampleClass
 	}
 }
 ```
-需要注意的是，在以上的例子中，数据源和数据目标各生成了一个绑定器，这是默认并且推荐的使用方式，以便于支持多数据源、多数据目标。但是数值类的绑定 (**RuntimeValueBinder\<T\>**) 也可以使用下面的方式简化调用，会同时返回数据源绑定器和数据目标绑定器：
+It should be noted that in the above example, the data source and the data target each generate a binder, which is the default and recommended way to use it in order to support multiple data sources and multiple data targets. However, the binding of the value class (**RuntimeValueBinder\<T\>**) can also be used to simplify the call in the following way, which will return the data source binder and data target binder at the same time:
 ``` cs
 public class ExampleClass
 {
@@ -231,64 +232,63 @@ public class ExampleClass
 ***
 
 
-##  3. <a name='-1'></a>工作模式
-###  3.1. <a name='-1'></a>被动回调模式
+##  3. <a name='Workmode'></a> Work mode
+###  3.1. <a name='Passivecallbackmode'></a> Passive callback mode
 > **OnValueChangedTrigger** -> **DataBinder**(Source) --> **DataConverter** -->  **DataBinder**(Target) 
 
-默认推荐使用的模式，此时 **DataBinder** 的 **NeedUpdate** 属性为 **false**，数据由数据源提供的数值变化回调触发刷新，通知到数据源绑定器，广播给所有的数据目标绑定器，再经由数据转换器转换成目标数据类熊。
+The default recommended mode, at this time the **NeedUpdate** property of **DataBinder** is **false**, the data is refreshed by the value change callback provided by the data source, notified to the data source binder, and broadcast to all The data target binder is then converted into target data bears through the data converter.
 
-###  3.2. <a name='-1'></a>主动更新模式
+###  3.2. <a name='Activeupdatemode'></a>Active update mode
 > **BindUpdater** -> **DataBinder**(Source) --> **DataConverter** -->  **DataBinder**(Target)
 
-当数据源不具备主动触发数据变化的能力时，框架提供统一的更新周期来主动检测数值变化，但这个模式无法避免的会造成性能损耗，应尽量减少使用，比较适合快速原型阶段。在这个模式下，**DataBinder** 的 **NeedUpdate** 属性为 **true**，且需要实现 **AddListener()** 和 **RemoveListener()** 方法实现具体的回调注册和注销。框架在 **BindUpdater** 组件中统一按周期触发所有数据源的 **UpdateSource()** 方法以实现数据变化检测和数据更新广播。 
+When the data source does not have the ability to actively trigger data changes, the framework provides a unified update cycle to actively detect the value changes, but this mode will inevitably cause performance loss. It should be used as little as possible, which is more suitable for rapid prototyping. In this mode, the **NeedUpdate** property of **DataBinder** is **true**, and the **AddListener()** and **RemoveListener()** methods need to be implemented to achieve specific callback registration and cancellation . The framework triggers the **UpdateSource()** method of all data sources in the **BindUpdater** component on a periodic basis to achieve data change detection and data update broadcasting.
 
 ***
 
-##  4. <a name='-1'></a>内建类型
+##  4. <a name='Built-intype'></a>Built-in type
 ###  4.1. <a name='Attribute'></a>Attribute
 ####  4.1.1. <a name='BindValueAttribute'></a>Bind Value Attribute
-用于在拥有处理绑定关系能力的类中标记需要绑定的属性和字段，只推荐绑定常见基础数据类型。被标记对象会动态创建 **RuntimeValueBinder** 进行处理。
+It is used to mark attributes and fields that need to be bound in a class that has the ability to handle binding relationships. It is only recommended to bind common basic data types. The marked object will dynamically create a **RuntimeValueBinder** for processing.
 ####  4.1.2. <a name='BindTypeAttribute'></a>Bind Type Attribute
-与 **BindValueAttribute** 的不同，用于标记自定义类和结构体类型对象，会动态创建 **RuntimeTypeBinder** 进行处理。
+Unlike **BindValueAttribute**, it is used to mark custom class and structure type objects, and **RuntimeTypeBinder** is dynamically created for processing.
 ###  4.2. <a name='DataContext'></a>Data Context
-数据容器，用于维护一组 Data Binder，可以包含多个数据源和数据目标点。每个数据容器相互独立。
+The data container is used to maintain a set of Data Binder, which can contain multiple data sources and data destinations. Each data container is independent of each other.
 
 ###  4.3. <a name='DataBinder'></a>Data Binder
-数据绑定器，用于将数据与具体的对象和其属性进行绑定，可以用于接收和广播数据。
-|属性|描述|
+The data binder is used to bind data to specific objects and its properties, and can be used to receive and broadcast data.
+|Property|Description|
 |-|-|
-|Target|数据目标对象。|
-|Context|数据容器的 Key 值，默认为 Default，无特殊需求可保持默认不设置。|
-|Key|目标数据的 Key 值，是单个数据容器内数据的唯一标识。|
-|Direction|数据的传递方向，Source 标识当前绑定器是数据源，作为数据广播发送者，Destination 标识当前绑定器作为数据接收者。|
-|UpdateType|对于未提供数据变化回调的目标对象，数据采用 Update 模式检测变化是否发生，此时需要指定 Update 的时机。|
+|Target|Data target object.|
+|Context|The Key value of the data container, the default is **Default**, if there is no special requirement, you can keep the default setting.|
+|Key|The Key value of the target data is the unique identification of the data in a single data container.|
+|Direction|Data transfer direction, Source identifies the current binder as the data source, as the data broadcast sender, and Target identifies the current binder as the data receiver.|
+|UpdateType|For target objects that do not provide data change callbacks, the data adopts the Update mode to detect whether changes have occurred. At this time, the update timing needs to be specified.|
 
 ###  4.4. <a name='DataConverter'></a>Data Converter
-当数据源和数据目标的数据类型不同时，会使用与 **(sourceType, targetType)** 对应的数据转换器尝试转换。
+When the data types of the data source and the data target are different, the data converter corresponding to **(sourceType, targetType)** will be used to try the conversion.
 
-默认的转换器 **CommonConverter** 的实现如下，可以通过修改 **DataConverter.Default** 来替换：
+The implementation of the default converter **CommonConverter** is as follows, which can be replaced by modifying **DataConverter.Default**:
 ``` cs
 Convert.ChangeType(object data, Type type);
 ```
-可以按需要使用以下接口提前注册特定类型的自定义转换器：
+You can register specific types of custom converters in advance using the following interfaces as needed:
 ``` cs
 DataConvert.Register(Type sourceType, Type targetType, DataConverter dataConverter);
 ```
 
 ###  4.5. <a name='ComponentBinder'></a>Component Binder
-数据绑定器的 Unity Component 版本，需要与一个具体的绑定器实现泛型绑定，用于实现组件数据的绑定。
+The Unity Component version of the data binder needs to realize generic binding with a specific binder to realize the binding of component data.
 
 ###  4.6. <a name='BindUpdater'></a>Bind Updater
-基于 **MonoBehaviour** 生命周期实现，用于统一维护需要主动更新数据的 **DataBinder** 的更新周期。
+Based on the **MonoBehaviour** life cycle implementation, it is used to uniformly maintain the update cycle of **DataBinder** that needs to actively update data.
 
 ###  4.7. <a name='BindMap'></a>Bind Map
-
+Used to cache all the binding structure information of the objects marked by **BindAttribute**.
 
 ***
 
-
-##  5. <a name='-1'></a>内建组件
-|组件|绑定对象类型|默认绑定属性|绑定属性类型|
+##  5. <a name='Built-incomponents'></a>Built-in components
+|Component|Binding object type|Default binding property|Binding property type|
 |-|-|-|-|
 |Text Binder|Text|text|string|
 |Text FontSize Binder|Text|fontSize|int|
@@ -308,9 +308,9 @@ DataConvert.Register(Type sourceType, Type targetType, DataConverter dataConvert
 
 ***
 
-##  6. <a name='-1'></a>自定义扩展
+##  6. <a name='Customextension'></a>Custom extension
 ###  6.1. <a name='CustomDataBinder'></a>Custom Data Binder
-通过继承 **DataBinder** 实现一个特定对象和属性的运行时数据绑定器：
+Implement a runtime data binder for a specific object and property by inheriting **DataBinder**:
 ``` cs
 public class RuntimeImageFillAmountBinder : DataBinder<Image, float>
 {
@@ -327,7 +327,7 @@ public class RuntimeImageFillAmountBinder : DataBinder<Image, float>
 ```
 
 ###  6.2. <a name='CustomComponentBinder'></a>Custom Component Binder
-如果需要用作组件，则需要额外实现对应的 **ComponentBinder**：
+If you need to use it as a component, you need to additionally implement the corresponding **ComponentBinder**:
 ``` cs
 [AddComponentMenu("Data Binding/Image FillAmount Binder")]
 public class ImageFillAmountBinder : ComponentUpdateBinder<Image, float, RuntimeImageFillAmountBinder>
@@ -336,7 +336,7 @@ public class ImageFillAmountBinder : ComponentUpdateBinder<Image, float, Runtime
 ```
 
 ###  6.3. <a name='CustomBinderEditor'></a>Custom Binder Editor
-如果组件需要保持基础组件样式并且扩展自定义属性和样式，则需要实现对应的 **ComponentBinderEditor**，与绑定器组件和运行时绑定器泛型关联：
+If the component needs to maintain the basic component style and extend custom properties and styles, it needs to implement the corresponding **ComponentBinderEditor**, which is generically associated with the binder component and the runtime binder:
 ``` cs
 #if UNITY_EDITOR
 using UnityEditor;
@@ -349,7 +349,7 @@ public class ImageFillAmountBinderEditor : ComponentBinderEditor<Image, float, R
 ```
 
 ###  6.4. <a name='CustomDataConverter'></a>Custom Data Converter
-如果需要在传递不同数据类型，并且数据不是 **Convert.ChangeType()** 可以处理的，则需要实现该类型转换的自定义数据转换器：
+If you need to transfer different data types and the data is not what **Convert.ChangeType()** can handle, you need a custom data converter that implements this type conversion:
 ``` cs
 public class CustomDataConverter : DataConverter
 {
@@ -361,7 +361,7 @@ public class CustomDataConverter : DataConverter
 	}
 }
 ```
-需要使用这些绑定器之前，比如游戏初始化时，注册自定的绑定器：
+Before you need to use these binders, such as when the game is initialized, register a custom binder:
 ``` cs
 var sourcetType = sourceData.GetType();
 var targetType = targetData.GetType();
@@ -370,17 +370,17 @@ DataConverter.Register((sourceType, targetType), new CustomDataConverter());
 
 ***
 
-##  7. <a name='-1'></a>注意事项
-* OnValueChanged 仅数据源可用。
-* 所有参数必须在编辑器模式配置，运行时修改参数无效。
-* TypeBinder 暂时仅支持单一层级属性的简单数据类。
-* 尽管组件支持不同数据类型的自动转换，但任然建议直接传递相同的数据类型以优化性能。
-* 多个数据源之间的数据不会被同步，如果数据源之间也需要同步需要将 Direction 设置成 Both。
-* PropertyBinder 和 TypeBinder 依赖反射实现，但由于某些原生组件的属性封装，直接反射修改字段并不能刷新显示，可能需要操作对应的属性，或者定制专用绑定器。
+##  7. <a name='Notes'></a>Notes
+* OnValueChanged is only available for data sources.
+* All parameters must be configured in the editor mode. Modifying the parameters during operation is invalid.
+* TypeBinder temporarily only supports simple data classes with single-level property.
+* Although the component supports automatic conversion of different data types, it is still recommended to pass the same data type directly to optimize performance.
+* The data between multiple data sources will not be synchronized. If the data sources also need to be synchronized, the Direction must be set to Both.
+* PropertyBinder and TypeBinder rely on reflection to achieve, but due to the property encapsulation of some native components, direct reflection to modify the field does not refresh the display. It may be necessary to manipulate the corresponding properties or customize a dedicated binder.
 
 ***
 
-##  8. <a name='--TextMeshPro'></a>扩展 -- TextMeshPro
+##  8. <a name='Extension--TextMeshPro'></a>Extension -- TextMeshPro
 * TMP Text Binder
 * TMP Text UI Binder
 * TMP Input Field Binder

@@ -1,8 +1,8 @@
 {
   "name": "com.ls9512.ubind",
   "displayName": "UBind",
-  "description": "UBind 是一个适用于 Unity 的数值绑定组件，用于快速实现UI和逻辑数据的关联绑定。",
-  "version": "1.0.0",
+  "description": "UBind is a value binding component for Unity, which is used to quickly realize the association binding between UI and logical data.",
+  "version": "0.9.0",
   "unity": "2019.4.3f1",
   "license": "MIT",
   "repository": {
