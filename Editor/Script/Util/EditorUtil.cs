@@ -103,7 +103,7 @@ namespace Aya.DataBinding
 
         public static SearchableDropdownItem CreateComponentsTreeMenu<TComponent>(Transform parent) where TComponent : Component
         {
-            var root = new SearchableDropdownItem(nameof(TComponent));
+            var root = new SearchableDropdownItem(typeof(TComponent).Name);
             root.AddChild(new SearchableDropdownItem(EditorStyle.NoneStr, null));
             root.AddSeparator();
             CreateComponentsTreeMenuRecursion<TComponent>(root, parent, "");
