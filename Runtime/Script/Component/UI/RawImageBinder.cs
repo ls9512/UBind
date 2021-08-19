@@ -13,14 +13,10 @@ namespace Aya.DataBinding
     {
         public override bool NeedUpdate => true;
 
-        public override void SetData(Texture data)
+        public override Texture Value
         {
-            Target.texture = data;
-        }
-
-        public override Texture GetData()
-        {
-            return Target.texture;
+            get => Target.texture;
+            set => Target.texture = value;
         }
     }
 

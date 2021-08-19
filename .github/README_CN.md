@@ -315,14 +315,10 @@ DataConvert.Register(Type sourceType, Type targetType, DataConverter dataConvert
 ``` cs
 public class RuntimeImageFillAmountBinder : DataBinder<Image, float>
 {
-	public override void SetData(float data)
+	public override float Value
 	{
-		Target.fillAmount = data;
-	}
-
-	public override float GetData()
-	{
-		return Target.fillAmount;
+		get => Target.fillAmount;
+		set => Target.fillAmount = value;
 	}
 }
 ```
@@ -383,5 +379,3 @@ DataConverter.Register((sourceType, targetType), new CustomDataConverter());
 
 ##  8. <a name='--TextMeshPro'></a>扩展 -- TextMeshPro
 * TMP Text Binder
-* TMP Text UI Binder
-* TMP Input Field Binder

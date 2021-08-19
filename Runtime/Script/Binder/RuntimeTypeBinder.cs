@@ -54,15 +54,6 @@ namespace Aya.DataBinding
             }
         }
 
-        public override void SetData(object data)
-        {
-            // Not use
-        }
-
-        public override object GetData()
-        {
-            // Not use
-            return null;
-        }
+        public override object Value { get; set; }
     }
 }

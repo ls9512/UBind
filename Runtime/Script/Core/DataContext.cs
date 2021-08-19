@@ -133,7 +133,7 @@ namespace Aya.DataBinding
             {
                 var sourceDataBinder = dataBinder as DataBinder<T>;
                 if (sourceDataBinder == null) continue;
-                var result = sourceDataBinder.GetData();
+                var result = sourceDataBinder.Value;
                 return result;
             }
 

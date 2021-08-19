@@ -13,14 +13,10 @@ namespace Aya.DataBinding
     {
         public override bool NeedUpdate => true;
 
-        public override void SetData(int data)
+        public override int Value
         {
-            Target.fontSize = data;
-        }
-
-        public override int GetData()
-        {
-            return Target.fontSize;
+            get => Target.fontSize;
+            set => Target.fontSize = value;
         }
     }
 

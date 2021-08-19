@@ -43,9 +43,7 @@ namespace Aya.DataBinding
 
         #endregion
 
-        public abstract void SetData(T data);
-
-        public abstract T GetData();
+        public abstract T Value { get; set; }
 
         public virtual void OnValueChangedCallback(T data)
         {
@@ -56,7 +54,7 @@ namespace Aya.DataBinding
         {
             if (!IsSource) return;
             var dataBinders = DataContext.GetDestinations(Key);
-            var data = GetData();
+            var data = Value;
             PreviousData = data;
             for (var i = 0; i < dataBinders.Count; i++)
             {
@@ -68,7 +66,7 @@ namespace Aya.DataBinding
         public override void UpdateSource()
         {
             if (!IsSource) return;
-            var currentData = GetData();
+            var currentData = Value;
             if (CheckEquals(currentData, PreviousData)) return;
             Broadcast();
             OnValueChanged?.Invoke(currentData);
@@ -78,7 +76,7 @@ namespace Aya.DataBinding
         {
             if (!IsDestination) return;
             var latestData = DataContext.GetData<T>(Context, Key);
-            SetData(latestData);
+            Value = latestData;
         }
 
         public virtual bool CheckEquals(T data1, T data2)

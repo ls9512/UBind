@@ -5,30 +5,26 @@ using UnityEngine;
 namespace Aya.DataBinding
 {
     [AddComponentMenu("Data Binding/TMP Text Binder")]
-    public class TMPTextBinder : ComponentBinder<TextMeshPro, string, RuntimeTMPTextBinder>
+    public class TMPTextBinder : ComponentBinder<TMP_Text, string, RuntimeTMPTextBinder>
     {
         public override bool NeedUpdate => true;
     }
 
-    public class RuntimeTMPTextBinder : DataBinder<TextMeshPro, string>
+    public class RuntimeTMPTextBinder : DataBinder<TMP_Text, string>
     {
         public override bool NeedUpdate => true;
 
-        public override void SetData(string data)
+        public override string Value
         {
-            Target.text = data;
-        }
-
-        public override string GetData()
-        {
-            return Target.text;
+            get => Target.text;
+            set => Target.text = value;
         }
     }
 
 #if UNITY_EDITOR
 
     [UnityEditor.CustomEditor(typeof(TMPTextBinder)), UnityEditor.CanEditMultipleObjects]
-    public class TMPTextBinderEditor : ComponentBinderEditor<TextMeshPro, string, RuntimeTMPTextBinder>
+    public class TMPTextBinderEditor : ComponentBinderEditor<TMP_Text, string, RuntimeTMPTextBinder>
     {
     }
 

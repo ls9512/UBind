@@ -13,14 +13,10 @@ namespace Aya.DataBinding
     {
         public override bool NeedUpdate => true;
 
-        public override void SetData(string data)
+        public override string Value
         {
-            Target.text = data;
-        }
-
-        public override string GetData()
-        {
-            return Target.text;
+            get => Target.text;
+            set => Target.text = value;
         }
     }
 

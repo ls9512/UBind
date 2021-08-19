@@ -26,14 +26,10 @@ namespace Aya.DataBinding
             Setter = setter;
         }
 
-        public override void SetData(T data)
+        public override T Value
         {
-            Setter(data);
-        }
-
-        public override T GetData()
-        {
-            return Getter();
+            get => Getter();
+            set => Setter(value);
         }
     }
 }

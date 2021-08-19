@@ -33,35 +33,20 @@ namespace Aya.DataBinding
 
         public virtual Type BinderType { get; internal set; }
 
-        public virtual MethodInfo GetMethod
+        public virtual PropertyInfo ValuePropertyInfo
         {
             get
             {
-                if (_getMethod == null)
+                if (_valuePropertyInfo == null)
                 {
-                    _getMethod = BinderType.GetMethod("GetData");
+                    _valuePropertyInfo = BinderType.GetProperty("Value");
                 }
 
-                return _getMethod;
+                return _valuePropertyInfo;
             }
         }
 
-        private MethodInfo _getMethod;
-
-        public virtual MethodInfo SetMethod
-        {
-            get
-            {
-                if (_setMethod == null)
-                {
-                    _setMethod = BinderType.GetMethod("SetData");
-                }
-
-                return _setMethod;
-            }
-        }
-
-        private MethodInfo _setMethod; 
+        private PropertyInfo _valuePropertyInfo;
 
         #endregion
 
@@ -123,18 +108,18 @@ namespace Aya.DataBinding
         {
             if (data == null)
             {
-                SetMethod.Invoke(this, null);
+                ValuePropertyInfo.SetValue(this, null);
                 return;
             }
 
             var converter = DataConverter.GetConverter(data.GetType(), DataType);
             var convertData = converter.To(data, DataType);
-            SetMethod.Invoke(this, new object[] { convertData });
+            ValuePropertyInfo.SetValue(this, convertData);
         }
 
         internal virtual object GetDataInternal(Type convertType)
         {
-            var data = GetMethod.Invoke(this, null);
+            var data = ValuePropertyInfo.GetValue(this);
             if (data == null) return default;
 
             var converter = DataConverter.GetConverter(DataType, convertType);

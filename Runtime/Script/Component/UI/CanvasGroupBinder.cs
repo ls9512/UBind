@@ -12,14 +12,10 @@ namespace Aya.DataBinding
     {
         public override bool NeedUpdate => true;
 
-        public override void SetData(float data)
+        public override float Value
         {
-            Target.alpha = data;
-        }
-
-        public override float GetData()
-        {
-            return Target.alpha;
+            get => Target.alpha;
+            set => Target.alpha = value;
         }
     }
 

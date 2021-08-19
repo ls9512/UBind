@@ -14,14 +14,10 @@ namespace Aya.DataBinding
     {
         public override bool NeedUpdate => true;
 
-        public override void SetData(List<Dropdown.OptionData> data)
+        public override List<Dropdown.OptionData> Value
         {
-            Target.options = data;
-        }
-
-        public override List<Dropdown.OptionData> GetData()
-        {
-            return Target.options;
+            get => Target.options;
+            set => Target.options = value;
         }
     }
 

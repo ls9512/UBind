@@ -14,14 +14,10 @@ namespace Aya.DataBinding
         public override void AddListener() => Target.onValueChanged.AddListener(OnValueChangedCallback);
         public override void RemoveListener() => Target.onValueChanged.RemoveListener(OnValueChangedCallback);
 
-        public override void SetData(int data)
+        public override int Value
         {
-            Target.value = data;
-        }
-
-        public override int GetData()
-        {
-            return Target.value;
+            get => Target.value;
+            set => Target.value = value;
         }
     }
 

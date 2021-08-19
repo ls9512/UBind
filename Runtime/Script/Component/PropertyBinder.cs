@@ -39,6 +39,56 @@ namespace Aya.DataBinding
 
         public override bool NeedUpdate => true;
 
+        public override object Value
+        {
+            get
+            {
+                if (FiledInfo != null)
+                {
+                    var data = FiledInfo.GetValue(Target);
+                    return data;
+                }
+
+                if (PropertyInfo != null)
+                {
+                    var data = PropertyInfo.GetValue(Target, null);
+                    return data;
+                }
+
+                return default;
+            }
+            set
+            {
+                var data = value;
+                var dataType = data != null ? data.GetType() : typeof(object);
+                if (FiledInfo != null)
+                {
+                    if (data != null && dataType != FiledInfo.FieldType)
+                    {
+                        var convertData = Convert.ChangeType(data, FiledInfo.FieldType, CultureInfo.InvariantCulture);
+                        FiledInfo.SetValue(Target, convertData);
+                    }
+                    else
+                    {
+                        FiledInfo.SetValue(Target, data);
+                    }
+                }
+
+                if (PropertyInfo != null)
+                {
+                    if (data != null && dataType != PropertyInfo.PropertyType)
+                    {
+                        var convertData = Convert.ChangeType(data, PropertyInfo.PropertyType, CultureInfo.InvariantCulture);
+                        PropertyInfo.SetValue(Target, convertData, null);
+                    }
+                    else
+                    {
+                        PropertyInfo.SetValue(Target, data, null);
+                    }
+                }
+            }
+        }
+
         public FieldInfo FiledInfo
         {
             get
@@ -74,53 +124,5 @@ namespace Aya.DataBinding
         }
 
         private PropertyInfo _propertyInfo;
-
-        public override object GetData()
-        {
-            if (FiledInfo != null)
-            {
-                var data = FiledInfo.GetValue(Target);
-                return data;
-            }
-
-            if (PropertyInfo != null)
-            {
-                var data = PropertyInfo.GetValue(Target, null);
-                return data;
-            }
-
-            return default;
-        }
-           
-
-        public override void SetData(object data)
-        {
-            var dataType = data != null ? data.GetType() : typeof(object);
-            if (FiledInfo != null)
-            {
-                if (data != null && dataType != FiledInfo.FieldType)
-                {
-                    var convertData = Convert.ChangeType(data, FiledInfo.FieldType, CultureInfo.InvariantCulture);
-                    FiledInfo.SetValue(Target, convertData);
-                }
-                else
-                {
-                    FiledInfo.SetValue(Target, data);
-                }
-            }
-
-            if (PropertyInfo != null)
-            {
-                if (data != null && dataType != PropertyInfo.PropertyType)
-                {
-                    var convertData = Convert.ChangeType(data, PropertyInfo.PropertyType, CultureInfo.InvariantCulture);
-                    PropertyInfo.SetValue(Target, convertData, null);
-                }
-                else
-                {
-                    PropertyInfo.SetValue(Target, data, null);
-                }
-            }
-        }
     }
 }

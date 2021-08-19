@@ -13,14 +13,10 @@ namespace Aya.DataBinding
     {
         public override bool NeedUpdate => true;
 
-        public override void SetData(Sprite data)
+        public override Sprite Value
         {
-            Target.sprite = data;
-        }
-
-        public override Sprite GetData()
-        {
-            return Target.sprite;
+            get => Target.sprite;
+            set => Target.sprite = value;
         }
     }
 
