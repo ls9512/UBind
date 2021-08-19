@@ -13,15 +13,23 @@ namespace Aya.DataBinding
             {
                 return data;
             }
-            else if (dataType == typeof(string))
+            else if (convertType == typeof(string))
             {
                 var convertData = data.ToString();
                 return convertData;
             }
             else
             {
-                var convertData = Convert.ChangeType(data, convertType, CultureInfo.InvariantCulture);
-                return convertData;
+                try
+                {
+                    var convertData = Convert.ChangeType(data, convertType, CultureInfo.InvariantCulture);
+                    return convertData;
+                }
+                catch
+                {
+                    var result =  convertType.IsValueType ? Activator.CreateInstance(convertType) : null;
+                    return result;
+                }
             }
         }
     }

@@ -293,6 +293,7 @@ DataConvert.Register(Type sourceType, Type targetType, DataConverter dataConvert
 |-|-|-|-|
 |Text Binder|Text|text|string|
 |Text FontSize Binder|Text|fontSize|int|
+|Text Format Value Binder|Text|text|float|
 |InputField Binder|InputField|text|string|
 |Slider Binder|Slider|value|float|
 |Scrollbar Binder|Scrollbar|value|float|
@@ -379,3 +380,4 @@ DataConverter.Register((sourceType, targetType), new CustomDataConverter());
 
 ##  8. <a name='--TextMeshPro'></a>扩展 -- TextMeshPro
 * TMP Text Binder
+* TMP Text Format Value Binder

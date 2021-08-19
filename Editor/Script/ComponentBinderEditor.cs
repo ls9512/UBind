@@ -19,11 +19,11 @@ namespace Aya.DataBinding
 
         public virtual void OnEnable()
         {
-            ContextKeyProperty = serializedObject.FindProperty("Context");
-            DataKeyProperty = serializedObject.FindProperty("Key");
-            DirectionProperty = serializedObject.FindProperty("Direction");
-            UpdateTypeProperty = serializedObject.FindProperty("UpdateType");
-            TargetProperty = serializedObject.FindProperty("Target");
+            ContextKeyProperty = serializedObject.FindProperty(nameof(ComponentBinder.Context));
+            DataKeyProperty = serializedObject.FindProperty(nameof(ComponentBinder.Key));
+            DirectionProperty = serializedObject.FindProperty(nameof(ComponentBinder.Direction));
+            UpdateTypeProperty = serializedObject.FindProperty(nameof(ComponentBinder.UpdateType));
+            TargetProperty = serializedObject.FindProperty(nameof(ComponentBinder.Target));
         }
 
         public override void OnInspectorGUI()

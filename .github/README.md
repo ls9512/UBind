@@ -292,6 +292,7 @@ Used to cache all the binding structure information of the objects marked by **B
 |-|-|-|-|
 |Text Binder|Text|text|string|
 |Text FontSize Binder|Text|fontSize|int|
+|Text Format Value Binder|Text|text|float|
 |InputField Binder|InputField|text|string|
 |Slider Binder|Slider|value|float|
 |Scrollbar Binder|Scrollbar|value|float|
@@ -378,3 +379,4 @@ DataConverter.Register((sourceType, targetType), new CustomDataConverter());
 
 ##  8. <a name='Extension--TextMeshPro'></a>Extension -- TextMeshPro
 * TMP Text Binder
+* TMP Text Format Value Binder
