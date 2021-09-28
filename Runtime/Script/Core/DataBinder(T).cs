@@ -5,6 +5,7 @@ namespace Aya.DataBinding
     public abstract class DataBinder<T> : DataBinder
     {
         public T PreviousData { get; internal set; }
+        public int PreviousDataHashCode { get; internal set; }
 
         // Source Only
         public Action<T> OnValueChanged { get; set; } = delegate { };
@@ -56,6 +57,7 @@ namespace Aya.DataBinding
             var dataBinders = DataContext.GetDestinations(Key);
             var data = Value;
             PreviousData = data;
+            PreviousDataHashCode = data.GetHashCode();
             for (var i = 0; i < dataBinders.Count; i++)
             {
                 var dataBinder = dataBinders[i];
@@ -67,7 +69,16 @@ namespace Aya.DataBinding
         {
             if (!IsSource) return;
             var currentData = Value;
-            if (CheckEquals(currentData, PreviousData)) return;
+            if (currentData != null && PreviousData != null)
+            {
+                var currentDataHashCode = currentData.GetHashCode();
+                if (CheckHashCodeEquals(currentDataHashCode, PreviousDataHashCode)) return;
+            }
+            else
+            {
+                if (CheckEquals(currentData, PreviousData)) return;
+            }
+
             Broadcast();
             OnValueChanged?.Invoke(currentData);
         }
@@ -77,6 +88,11 @@ namespace Aya.DataBinding
             if (!IsDestination) return;
             var latestData = DataContext.GetData<T>(Context, Key);
             Value = latestData;
+        }
+
+        public virtual bool CheckHashCodeEquals(int data1, int data2)
+        {
+            return data1.Equals(data2);
         }
 
         public virtual bool CheckEquals(T data1, T data2)
