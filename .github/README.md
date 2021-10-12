@@ -20,6 +20,8 @@
 
 [[中文文档]](README_CN.md)
 
+> Official QQ Group：[1070645638](https://jq.qq.com/?_wv=1027&k=ezkLnUln)
+
 <!-- vscode-markdown-toc -->
 * 1. [ Features](#Features)
 * 2. [How to use](#Howtouse)

@@ -20,6 +20,8 @@
 
 [[English Documents Available]](README.md)
 
+> 官方交流QQ群：[1070645638](https://jq.qq.com/?_wv=1027&k=ezkLnUln)
+
 <!-- vscode-markdown-toc -->
 * 1. [特性](#)
 * 2. [使用方法](#-1)
