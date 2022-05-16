@@ -14,7 +14,7 @@
     "versionDefines": [
         {
             "name": "com.unity.textmeshpro",
-            "expression": "1.0.0",
+            "expression": "2.0.0",
             "define": "UBIND_TEXTMESHPRO"
         }
     ],
