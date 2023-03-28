@@ -24,12 +24,12 @@
     {
       "displayName": "Samples",
       "description": "Samples",
-      "path": "Samples~"
+      "path": "Samples"
     },
     {
       "displayName": "Extension",
       "description": "TextMeshPro Support",
-      "path": "Extension~"
+      "path": "Extension"
     }
   ]
 }
