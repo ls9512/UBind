@@ -7,5 +7,15 @@ namespace Aya.DataBinding
         public TTarget Target;
 
         public virtual Type TargetType { get; internal set; } = typeof(TTarget);
+
+        public override void UpdateSource()
+        {
+            if(Target == null)
+            {
+                return;
+            }
+
+            base.UpdateSource();
+        }
     }
 }
