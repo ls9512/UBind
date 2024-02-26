@@ -6,9 +6,9 @@ namespace Aya.DataBinding
 {
     public class BaseBinderEditor : Editor
     {
-        protected void DrawContextKey(SerializedProperty property)
+        protected void DrawContainerKey(SerializedProperty property)
         {
-            if (property.stringValue == DataContext.Default)
+            if (property.stringValue == DataContainer.Default)
             {
                 using (new ColorScope(Color.gray))
                 {
@@ -34,7 +34,7 @@ namespace Aya.DataBinding
 
         protected void DrawDirection(SerializedProperty property)
         {
-            EditorGUILayout.PropertyField(property);
+            EditorUtil.DrawToolbarEnum(property, typeof(DataDirection));
         }
 
         protected void DrawTarget<TComponent>(SerializedProperty property, Transform root) where TComponent : Component

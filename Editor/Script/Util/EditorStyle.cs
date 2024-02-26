@@ -14,11 +14,9 @@ namespace Aya.DataBinding
         {
             get
             {
-                if (_richLabel == null)
-                {
-                    _richLabel = EditorStyles.label;
-                    _richLabel.richText = true;
-                }
+                if (_richLabel != null) return _richLabel;
+                _richLabel = EditorStyles.label;
+                _richLabel.richText = true;
 
                 return _richLabel;
             }

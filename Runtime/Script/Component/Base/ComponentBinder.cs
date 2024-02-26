@@ -6,14 +6,14 @@ namespace Aya.DataBinding
         where TDataBinder : DataBinder<TComponent, TValue>, new()
         where TComponent : Component
     {
-        public string Context = DataContext.Default;
+        public string Container = DataContainer.Default;
         public string Key;
         public DataDirection Direction = DataDirection.Target;
         public UpdateType UpdateType = UpdateType.Update;
         public TComponent Target;
 
         public TDataBinder DataBinder { get; internal set; }
-        public DataContext DataContext => DataBinder?.DataContext;
+        public DataContainer DataContainer => DataBinder?.DataContainer;
 
         public bool IsDestination => Direction == DataDirection.Target || Direction == DataDirection.Both;
         public bool IsSource => Direction == DataDirection.Source || Direction == DataDirection.Both;
@@ -47,7 +47,7 @@ namespace Aya.DataBinding
             {
                 Target = Target,
                 TargetType = typeof(TComponent),
-                Context = Context,
+                Container = Container,
                 Direction = Direction,
                 UpdateType = UpdateType,
                 Key = Key

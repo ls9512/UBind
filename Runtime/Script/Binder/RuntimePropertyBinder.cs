@@ -9,9 +9,9 @@ namespace Aya.DataBinding
 
         public override Type TargetType => Target.GetType();
 
-        public RuntimePropertyBinder(string context, string key, DataDirection direction, object target, PropertyInfo propertyInfo, FieldInfo fieldInfo)
+        public RuntimePropertyBinder(string container, string key, DataDirection direction, object target, PropertyInfo propertyInfo, FieldInfo fieldInfo)
         {
-            Context = context;
+            Container = container;
             Key = key;
             Direction = direction;
             Target = target;

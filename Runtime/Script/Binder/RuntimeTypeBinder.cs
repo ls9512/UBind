@@ -9,9 +9,9 @@ namespace Aya.DataBinding
 
         private List<DataBinder> _binderCaches;
 
-        public RuntimeTypeBinder(string context, string key, DataDirection direction, object target)
+        public RuntimeTypeBinder(string container, string key, DataDirection direction, object target)
         {
-            Context = context;
+            Container = container;
             Key = key;
             Direction = direction;
             Target = target;
@@ -27,14 +27,14 @@ namespace Aya.DataBinding
                 foreach (var propertyInfo in properties)
                 {
                     var key = type.Name + "." + propertyInfo.Name + "." + Key;
-                    var binder = new RuntimePropertyBinder(Context, key, Direction, Target, propertyInfo, null);
+                    var binder = new RuntimePropertyBinder(Container, key, Direction, Target, propertyInfo, null);
                     _binderCaches.Add(binder);
                 }
 
                 foreach (var fieldInfo in fields)
                 {
                     var key = type.Name + "." + fieldInfo.Name + "." + Key;
-                    var binder = new RuntimePropertyBinder(Context, key, Direction, Target, null, fieldInfo);
+                    var binder = new RuntimePropertyBinder(Container, key, Direction, Target, null, fieldInfo);
                     _binderCaches.Add(binder);
                 }
             }

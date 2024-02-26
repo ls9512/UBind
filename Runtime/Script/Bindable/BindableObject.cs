@@ -17,12 +17,12 @@ namespace Aya.DataBinding
 
         protected BindableObject()
         {
-            BindMap.Bind(this);
+            UBind.RegisterMap(this);
         }
 
         ~BindableObject()
         {
-            BindMap.UnBind(this);
+            UBind.DeRegisterMap(this);
         }
     }
 }

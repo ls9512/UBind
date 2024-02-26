@@ -9,7 +9,7 @@ namespace Aya.DataBinding
         {
         }
 
-        public BindTypeBothAttribute(string contextKey, string dataKey) : base(contextKey, dataKey, DataDirection.Both)
+        public BindTypeBothAttribute(string containerKey, string dataKey) : base(containerKey, dataKey, DataDirection.Both)
         {
         }
     }

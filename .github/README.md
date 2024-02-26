@@ -40,7 +40,7 @@
 	* 4.1. [Attribute](#Attribute)
 		* 4.1.1. [Bind Value Attribute](#BindValueAttribute)
 		* 4.1.2. [Bind Type Attribute](#BindTypeAttribute)
-	* 4.2. [Data Context](#DataContext)
+	* 4.2. [Data Container](#DataContainer)
 	* 4.3. [Data Binder](#DataBinder)
 	* 4.4. [Data Converter](#DataConverter)
 	* 4.5. [Component Binder](#ComponentBinder)
@@ -158,12 +158,12 @@ public class ExanokeMonoBehaviour : MonoBehaviour
 
 	public void OnEnable()
 	{
-		BindMap.Bind(this);
+		UBind.RegisterMap(this);
 	}
 
 	public void OnDisable()
 	{
-		BindMap.UnBind(this);
+		UBind.DeRegisterMap(this);
 	}
 }
 ```
@@ -253,7 +253,7 @@ When the data source does not have the ability to actively trigger data changes,
 It is used to mark attributes and fields that need to be bound in a class that has the ability to handle binding relationships. It is only recommended to bind common basic data types. The marked object will dynamically create a **RuntimeValueBinder** for processing.
 ####  4.1.2. <a name='BindTypeAttribute'></a>Bind Type Attribute
 Unlike **BindValueAttribute**, it is used to mark custom class and structure type objects, and **RuntimeTypeBinder** is dynamically created for processing.
-###  4.2. <a name='DataContext'></a>Data Context
+###  4.2. <a name='DataContainer'></a>Data Container
 The data container is used to maintain a set of Data Binder, which can contain multiple data sources and data destinations. Each data container is independent of each other.
 
 ###  4.3. <a name='DataBinder'></a>Data Binder
@@ -289,7 +289,7 @@ Used to cache all the binding structure information of the objects marked by **B
 
 ***
 
-##  5. <a name='Built-incomponents'></a>Built-in components
+##  5. <a name='Built-incomponents'></a>Built-in Components
 |Component|Binding object type|Default binding property|Binding property type|
 |-|-|-|-|
 |Text Binder|Text|text|string|
@@ -311,7 +311,7 @@ Used to cache all the binding structure information of the objects marked by **B
 
 ***
 
-##  6. <a name='Customextension'></a>Custom extension
+##  6. <a name='Customextension'></a>Custom Extension
 ###  6.1. <a name='CustomDataBinder'></a>Custom Data Binder
 Implement a runtime data binder for a specific object and property by inheriting **DataBinder**:
 ``` cs

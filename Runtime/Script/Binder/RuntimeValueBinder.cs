@@ -9,17 +9,17 @@ namespace Aya.DataBinding
         public Func<T> Getter;
         public Action<T> Setter;
 
-        public RuntimeValueBinder(string context, string key, Func<T> getter) : this(context, key, DataDirection.Source, getter, null)
+        public RuntimeValueBinder(string container, string key, Func<T> getter) : this(container, key, DataDirection.Source, getter, null)
         {
         }
 
-        public RuntimeValueBinder(string context, string key, Action<T> setter) : this(context, key, DataDirection.Target, null, setter)
+        public RuntimeValueBinder(string container, string key, Action<T> setter) : this(container, key, DataDirection.Target, null, setter)
         {
         }
 
-        public RuntimeValueBinder(string context, string key, DataDirection direction, Func<T> getter, Action<T> setter)
+        public RuntimeValueBinder(string container, string key, DataDirection direction, Func<T> getter, Action<T> setter)
         {
-            Context = context;
+            Container = container;
             Key = key;
             Direction = direction;
             Getter = getter;

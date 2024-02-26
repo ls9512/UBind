@@ -10,19 +10,14 @@ namespace Aya.DataBinding
 
         public abstract object To(object value, Type convertType);
 
-        public static void Register(Type sourceType, Type targetType, DataConverter dataConverter)
+        public static void RegisterConverter(Type sourceType, Type targetType, DataConverter dataConverter)
         {
             ConverterDic[(sourceType, targetType)] = dataConverter;
         }
 
         public static DataConverter GetConverter(Type sourceType, Type targetType)
         {
-            if (ConverterDic.TryGetValue((sourceType, targetType), out var converter))
-            {
-                return converter;
-            }
-
-            return Default;
+            return ConverterDic.TryGetValue((sourceType, targetType), out var converter) ? converter : Default;
         }
     }
 }

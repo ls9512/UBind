@@ -10,7 +10,7 @@ namespace Aya.DataBinding
 
         public override void UpdateSource()
         {
-            if(Target == null)
+            if (Target == null)
             {
                 return;
             }

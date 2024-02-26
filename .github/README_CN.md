@@ -40,7 +40,7 @@
 	* 4.1. [Attribute](#Attribute)
 		* 4.1.1. [Bind Value Attribute](#BindValueAttribute)
 		* 4.1.2. [Bind Type Attribute](#BindTypeAttribute)
-	* 4.2. [Data Context](#DataContext)
+	* 4.2. [Data Container](#DataContainer)
 	* 4.3. [Data Binder](#DataBinder)
 	* 4.4. [Data Converter](#DataConverter)
 	* 4.5. [Component Binder](#ComponentBinder)
@@ -158,12 +158,12 @@ public class ExanokeMonoBehaviour : MonoBehaviour
 
 	public void OnEnable()
 	{
-		BindMap.Bind(this);
+		UBind.RegisterMap(this);
 	}
 
 	public void OnDisable()
 	{
-		BindMap.UnBind(this);
+		UBind.DeRegisterMap(this);
 	}
 }
 ```
@@ -253,7 +253,7 @@ public class ExampleClass
 用于在拥有处理绑定关系能力的类中标记需要绑定的属性和字段，只推荐绑定常见基础数据类型。被标记对象会动态创建 **RuntimeValueBinder** 进行处理。
 ####  4.1.2. <a name='BindTypeAttribute'></a>Bind Type Attribute
 与 **BindValueAttribute** 的不同，用于标记自定义类和结构体类型对象，会动态创建 **RuntimeTypeBinder** 进行处理。
-###  4.2. <a name='DataContext'></a>Data Context
+###  4.2. <a name='DataContainer'></a>Data Container
 数据容器，用于维护一组 Data Binder，可以包含多个数据源和数据目标点。每个数据容器相互独立。
 
 ###  4.3. <a name='DataBinder'></a>Data Binder
@@ -275,7 +275,7 @@ Convert.ChangeType(object data, Type type);
 ```
 可以按需要使用以下接口提前注册特定类型的自定义转换器：
 ``` cs
-DataConvert.Register(Type sourceType, Type targetType, DataConverter dataConverter);
+UBind.RegisterConverter(Type sourceType, Type targetType, DataConverter dataConverter);
 ```
 
 ###  4.5. <a name='ComponentBinder'></a>Component Binder
@@ -285,7 +285,7 @@ DataConvert.Register(Type sourceType, Type targetType, DataConverter dataConvert
 基于 **MonoBehaviour** 生命周期实现，用于统一维护需要主动更新数据的 **DataBinder** 的更新周期。
 
 ###  4.7. <a name='BindMap'></a>Bind Map
-
+用于缓存类中所有被 **BindAttribute** 所标记的字段和属性信息。
 
 ***
 
@@ -365,7 +365,7 @@ public class CustomDataConverter : DataConverter
 ``` cs
 var sourcetType = sourceData.GetType();
 var targetType = targetData.GetType();
-DataConverter.Register((sourceType, targetType), new CustomDataConverter());
+UBind.RegisterConverter((sourceType, targetType), new CustomDataConverter());
 ```
 
 ***

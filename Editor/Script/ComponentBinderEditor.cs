@@ -11,7 +11,7 @@ namespace Aya.DataBinding
     {
         public ComponentBinder<TComponent, TValue, TDataBinder> ComponentBinder => target as ComponentBinder<TComponent, TValue, TDataBinder>;
 
-        protected SerializedProperty ContextKeyProperty;
+        protected SerializedProperty ContainerKeyProperty;
         protected SerializedProperty DataKeyProperty;
         protected SerializedProperty DirectionProperty;
         protected SerializedProperty UpdateTypeProperty;
@@ -19,7 +19,7 @@ namespace Aya.DataBinding
 
         public virtual void OnEnable()
         {
-            ContextKeyProperty = serializedObject.FindProperty(nameof(ComponentBinder.Context));
+            ContainerKeyProperty = serializedObject.FindProperty(nameof(ComponentBinder.Container));
             DataKeyProperty = serializedObject.FindProperty(nameof(ComponentBinder.Key));
             DirectionProperty = serializedObject.FindProperty(nameof(ComponentBinder.Direction));
             UpdateTypeProperty = serializedObject.FindProperty(nameof(ComponentBinder.UpdateType));
@@ -30,7 +30,7 @@ namespace Aya.DataBinding
         {
             serializedObject.Update();
 
-            DrawContextKey(ContextKeyProperty);
+            DrawContainerKey(ContainerKeyProperty);
             DrawDataKey(DataKeyProperty);
             DrawDirection(DirectionProperty);
 

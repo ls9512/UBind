@@ -24,29 +24,29 @@ namespace Aya.DataBinding
 
         public static BindMap GetBindMap(Type type)
         {
-            if (!MapDic.TryGetValue(type, out var bindMap))
+            if (MapDic.TryGetValue(type, out var bindMap)) return bindMap;
+            bindMap = new BindMap()
             {
-                bindMap = new BindMap()
-                {
-                    Type = type
-                };
+                Type = type
+            };
 
-                var bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
-                var propertyInfos = type.GetProperties(bindingFlags);
-                foreach (var propertyInfo in propertyInfos)
-                {
-                    var bindAttribute = propertyInfo.GetCustomAttribute<BindAttribute>();
-                    if (bindAttribute == null) continue;
-                    bindMap.PropertyInfos.Add(propertyInfo, bindAttribute);
-                }
+            var bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+            var propertyInfos = type.GetProperties(bindingFlags);
+            for (var i = 0; i < propertyInfos.Length; i++)
+            {
+                var propertyInfo = propertyInfos[i];
+                var bindAttribute = propertyInfo.GetCustomAttribute<BindAttribute>();
+                if (bindAttribute == null) continue;
+                bindMap.PropertyInfos.Add(propertyInfo, bindAttribute);
+            }
 
-                var fieldInfos = type.GetFields(bindingFlags);
-                foreach (var fieldInfo in fieldInfos)
-                {
-                    var bindAttribute = fieldInfo.GetCustomAttribute<BindAttribute>();
-                    if (bindAttribute == null) continue;
-                    bindMap.FieldInfos.Add(fieldInfo, bindAttribute);
-                }
+            var fieldInfos = type.GetFields(bindingFlags);
+            for (var i = 0; i < fieldInfos.Length; i++)
+            {
+                var fieldInfo = fieldInfos[i];
+                var bindAttribute = fieldInfo.GetCustomAttribute<BindAttribute>();
+                if (bindAttribute == null) continue;
+                bindMap.FieldInfos.Add(fieldInfo, bindAttribute);
             }
 
             return bindMap;
@@ -54,9 +54,9 @@ namespace Aya.DataBinding
 
         #endregion
 
-        #region Bind / UnBind
+        #region Register / DeRegister
 
-        public static void Bind(object target)
+        public static void RegisterMap(object target)
         {
             var bindMap = GetBindMap(target);
             foreach (var kv in bindMap.PropertyInfos)
@@ -64,20 +64,20 @@ namespace Aya.DataBinding
                 var propertyInfo = kv.Key;
                 var bindAttribute = kv.Value;
 
-                var context = bindAttribute.Context;
+                var container = bindAttribute.Container;
                 var key = bindAttribute.Key;
                 var direction = bindAttribute.Direction;
 
                 if (bindAttribute is BindValueAttribute)
                 {
-                    var propertyBinder = new RuntimePropertyBinder(context, key, direction, target, propertyInfo, null);
+                    var propertyBinder = new RuntimePropertyBinder(container, key, direction, target, propertyInfo, null);
                     propertyBinder.Bind();
                 }
 
                 if (bindAttribute is BindTypeAttribute)
                 {
                     var obj = propertyInfo.GetValue(target, null);
-                    var propertyBinder = new RuntimeTypeBinder(context, key, direction, obj);
+                    var propertyBinder = new RuntimeTypeBinder(container, key, direction, obj);
                     propertyBinder.Bind();
                 }
             }
@@ -87,26 +87,26 @@ namespace Aya.DataBinding
                 var fieldInfo = kv.Key;
                 var bindAttribute = kv.Value;
 
-                var context = bindAttribute.Context;
+                var container = bindAttribute.Container;
                 var key = bindAttribute.Key;
                 var direction = bindAttribute.Direction;
 
                 if (bindAttribute is BindValueAttribute)
                 {
-                    var propertyBinder = new RuntimePropertyBinder(context, key, direction, target, null, fieldInfo);
+                    var propertyBinder = new RuntimePropertyBinder(container, key, direction, target, null, fieldInfo);
                     propertyBinder.Bind();
                 }
 
                 if (bindAttribute is BindTypeAttribute)
                 {
                     var obj = fieldInfo.GetValue(target);
-                    var propertyBinder = new RuntimeTypeBinder(context, key, direction, obj);
+                    var propertyBinder = new RuntimeTypeBinder(container, key, direction, obj);
                     propertyBinder.Bind();
                 }
             }
         }
 
-        public static void UnBind(object target)
+        public static void DeRegisterMap(object target)
         {
             foreach (var binder in BindUpdater.Ins.UpdateSourceList)
             {

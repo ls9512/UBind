@@ -19,7 +19,7 @@ namespace Aya.DataBinding
                 Target = Target,
                 TargetType = Target.GetType(),
                 Property = Property,
-                Context = Context,
+                Container = Container,
                 Direction = Direction,
                 Key = Key
             };

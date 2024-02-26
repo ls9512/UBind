@@ -80,8 +80,9 @@ namespace Aya.DataBinding
         public static Assembly GetAssemblyByName(string assemblyName)
         {
             if (string.IsNullOrEmpty(assemblyName)) return null;
-            foreach (var assembly in Assemblies)
+            for (var i = 0; i < Assemblies.Length; i++)
             {
+                var assembly = Assemblies[i];
                 var temp = assembly.GetName().Name;
                 if (temp == assemblyName) return assembly;
             }
@@ -100,30 +101,27 @@ namespace Aya.DataBinding
 
         public static List<Type> GetAssemblyTypes(Assembly assembly)
         {
-            if (!AssemblyTypeDic.TryGetValue(assembly, out var result))
+            if (AssemblyTypeDic.TryGetValue(assembly, out var result)) return result;
+            result = new List<Type>();
+            var types = assembly.GetTypes();
+            for (var i = 0; i < types.Length; i++)
             {
-                result = new List<Type>();
-                var types = assembly.GetTypes();
-                foreach (var type in types)
-                {
-                    result.Add(type);
-                }
-
-                AssemblyTypeDic.Add(assembly, result);
+                var type = types[i];
+                result.Add(type);
             }
+
+            AssemblyTypeDic.Add(assembly, result);
 
             return result;
         }
 
         public static List<PropertyInfo> GetTypeProperties(Type type)
         {
-            if (!TypePropertyDic.TryGetValue(type, out var result))
-            {
-                result = new List<PropertyInfo>();
-                var properties = type.GetProperties(DefaultBindingFlags);
-                result.AddRange(properties);
-                TypePropertyDic.Add(type, result);
-            }
+            if (TypePropertyDic.TryGetValue(type, out var result)) return result;
+            result = new List<PropertyInfo>();
+            var properties = type.GetProperties(DefaultBindingFlags);
+            result.AddRange(properties);
+            TypePropertyDic.Add(type, result);
 
             return result;
         }
@@ -137,13 +135,11 @@ namespace Aya.DataBinding
                 TypeNamePropertyDic.Add(type, propertyDic);
             }
 
-            if (!propertyDic.TryGetValue(propertyName, out var propertyInfo))
+            if (propertyDic.TryGetValue(propertyName, out var propertyInfo)) return propertyInfo;
+            propertyInfo = type.GetProperty(propertyName, DefaultBindingFlags);
+            if (propertyInfo != null)
             {
-                propertyInfo = type.GetProperty(propertyName, DefaultBindingFlags);
-                if (propertyInfo != null)
-                {
-                    propertyDic.Add(propertyName, propertyInfo);
-                }
+                propertyDic.Add(propertyName, propertyInfo);
             }
 
             return propertyInfo;
@@ -151,13 +147,11 @@ namespace Aya.DataBinding
 
         public static List<FieldInfo> GetTypeFields(Type type)
         {
-            if (!TypeFieldDic.TryGetValue(type, out var result))
-            {
-                result = new List<FieldInfo>();
-                var fields = type.GetFields(DefaultBindingFlags);
-                result.AddRange(fields);
-                TypeFieldDic.Add(type, result);
-            }
+            if (TypeFieldDic.TryGetValue(type, out var result)) return result;
+            result = new List<FieldInfo>();
+            var fields = type.GetFields(DefaultBindingFlags);
+            result.AddRange(fields);
+            TypeFieldDic.Add(type, result);
 
             return result;
         }
@@ -171,13 +165,11 @@ namespace Aya.DataBinding
                 TypeNameFiledDic.Add(type, fieldDic);
             }
 
-            if (!fieldDic.TryGetValue(fieldName, out var fieldInfo))
+            if (fieldDic.TryGetValue(fieldName, out var fieldInfo)) return fieldInfo;
+            fieldInfo = type.GetField(fieldName, DefaultBindingFlags);
+            if (fieldInfo != null)
             {
-                fieldInfo = type.GetField(fieldName, DefaultBindingFlags);
-                if (fieldInfo != null)
-                {
-                    fieldDic.Add(fieldName, fieldInfo);
-                }
+                fieldDic.Add(fieldName, fieldInfo);
             }
 
             return fieldInfo;

@@ -18,12 +18,12 @@ namespace Aya.DataBinding
 
         public virtual void OnEnable()
         {
-            BindMap.Bind(this);
+            UBind.RegisterMap(this);
         }
 
         public virtual void OnDisable()
         {
-            BindMap.UnBind(this);
+            UBind.DeRegisterMap(this);
         }
     }
 }

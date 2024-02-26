@@ -17,7 +17,7 @@ namespace Aya.DataBinding
             var dataBinder = new RuntimeTMPTextFormatValueBinder
             {
                 Target = Target,
-                Context = Context,
+                Container = Container,
                 Direction = Direction,
                 Key = Key,
                 Text = Text

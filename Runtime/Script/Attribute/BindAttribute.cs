@@ -5,7 +5,7 @@ namespace Aya.DataBinding
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public abstract class BindAttribute : Attribute
     {
-        public string Context = DataContext.Default;
+        public string Container = DataContainer.Default;
         public string Key;
         public DataDirection Direction;
 
@@ -15,9 +15,9 @@ namespace Aya.DataBinding
             Direction = direction;
         }
 
-        protected BindAttribute(string contextKey, string dataKey, DataDirection direction)
+        protected BindAttribute(string containerKey, string dataKey, DataDirection direction)
         {
-            Context = contextKey;
+            Container = containerKey;
             Key = dataKey;
             Direction = direction;
         }

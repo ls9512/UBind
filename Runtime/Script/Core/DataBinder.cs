@@ -20,7 +20,7 @@ namespace Aya.DataBinding
 
     public abstract class DataBinder
     {
-        public string Context = DataContext.Default;
+        public string Container = DataContainer.Default;
         public string Key;
         public DataDirection Direction = DataDirection.Target;
 
@@ -53,7 +53,7 @@ namespace Aya.DataBinding
         public bool IsDestination => Direction == DataDirection.Target || Direction == DataDirection.Both;
         public bool IsSource => Direction == DataDirection.Source || Direction == DataDirection.Both;
 
-        public DataContext DataContext { get; internal set; }
+        public DataContainer DataContainer { get; internal set; }
 
         public virtual bool NeedUpdate => false;
 
@@ -80,7 +80,7 @@ namespace Aya.DataBinding
                 AddListener();
             }
 
-            DataContext.Bind(this);
+            DataContainer.Bind(this);
         }
 
         public virtual void RemoveListener()
@@ -99,7 +99,7 @@ namespace Aya.DataBinding
                 RemoveListener();
             }
 
-            DataContext.UnBind(this);
+            DataContainer.UnBind(this);
         }
 
         public abstract void Broadcast();

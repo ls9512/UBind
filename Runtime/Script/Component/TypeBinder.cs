@@ -15,7 +15,7 @@ namespace Aya.DataBinding
     [AddComponentMenu("Data Binding/Type Binder")]
     public class TypeBinder : MonoBehaviour
     {
-        public string Context = DataContext.Default;
+        public string Container = DataContainer.Default;
         public string Key;
         public DataDirection Direction = DataDirection.Target;
 
@@ -35,7 +35,7 @@ namespace Aya.DataBinding
                 {
                     var key = type.Name + "." + map.Property + "." + Key;
                     var (property, field) = TypeCaches.GetTypePropertyOrFieldByName(map.Target.GetType(), map.TargetProperty);
-                    var binder = new RuntimePropertyBinder(Context, key, Direction, map.Target, property, field);
+                    var binder = new RuntimePropertyBinder(Container, key, Direction, map.Target, property, field);
                     _binderCaches.Add(binder);
                 }
             }

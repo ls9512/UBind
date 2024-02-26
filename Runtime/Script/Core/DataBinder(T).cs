@@ -54,7 +54,7 @@ namespace Aya.DataBinding
         public override void Broadcast()
         {
             if (!IsSource) return;
-            var dataBinders = DataContext.GetDestinations(Key);
+            var dataBinders = DataContainer.GetDestinations(Key);
             var data = Value;
             PreviousData = data;
             PreviousDataHashCode = data.GetHashCode();
@@ -86,7 +86,7 @@ namespace Aya.DataBinding
         public override void UpdateTarget()
         {
             if (!IsDestination) return;
-            var latestData = DataContext.GetData<T>(Context, Key);
+            var latestData = DataContainer.GetData<T>(Container, Key);
             Value = latestData;
         }
 

@@ -17,8 +17,9 @@ namespace Aya.DataBinding
             root.AddSeparator();
 
             var assemblies = TypeCaches.Assemblies;
-            foreach (var assembly in assemblies)
+            for (var i = 0; i < assemblies.Length; i++)
             {
+                var assembly = assemblies[i];
                 var assemblyName = assembly.GetName().Name;
                 var child = new SearchableDropdownItem(assemblyName, assemblyName);
                 root.AddChild(child);
@@ -57,19 +58,18 @@ namespace Aya.DataBinding
             root.AddSeparator();
 
             var assembly = TypeCaches.GetAssemblyByName(assemblyName);
-            if (assembly != null)
+            if (assembly == null) return root;
+            var types = assembly.GetTypes();
+            for (var i = 0; i < types.Length; i++)
             {
-                var types = assembly.GetTypes();
-                foreach (var type in types)
-                {
-                    if (type.IsAbstract) continue;
-                    if (type.IsInterface) continue;
-                    if (type.IsGenericType) continue;
-                    if (type.IsEnum) continue;
+                var type = types[i];
+                if (type.IsAbstract) continue;
+                if (type.IsInterface) continue;
+                if (type.IsGenericType) continue;
+                if (type.IsEnum) continue;
 
-                    var child = new SearchableDropdownItem(type.Name, type.FullName);
-                    root.AddChild(child);
-                }
+                var child = new SearchableDropdownItem(type.Name, type.FullName);
+                root.AddChild(child);
             }
 
             return root;
@@ -113,8 +113,9 @@ namespace Aya.DataBinding
         private static void CreateComponentsTreeMenuRecursion<TComponent>(SearchableDropdownItem root, Transform parent, string path) where TComponent : Component
         {
             var components = parent.GetComponents<TComponent>();
-            foreach (var component in components)
+            for (var i = 0; i < components.Length; i++)
             {
+                var component = components[i];
                 var componentName = component.GetType().Name;
                 var child = new SearchableDropdownItem(path + componentName, component)
                 {
@@ -192,8 +193,9 @@ namespace Aya.DataBinding
 
             var propertyInfos = TypeCaches.GetTypeProperties(type);
             var prefix = "Property/";
-            foreach (var propertyInfo in propertyInfos)
+            for (var i = 0; i < propertyInfos.Count; i++)
             {
+                var propertyInfo = propertyInfos[i];
                 // if (!TypeCaches.BindableTypes.Contains(propertyInfo.PropertyType)) continue;
                 var displayName = propertyInfo.Name + "\t\t" + propertyInfo.PropertyType.Name;
                 menu.AddItem(new GUIContent(prefix + displayName), propertyInfo.Name == property.stringValue, () =>
@@ -206,8 +208,9 @@ namespace Aya.DataBinding
 
             var filedInfos = TypeCaches.GetTypeFields(type);
             prefix = "Field/";
-            foreach (var fieldInfo in filedInfos)
+            for (var i = 0; i < filedInfos.Count; i++)
             {
+                var fieldInfo = filedInfos[i];
                 // if (!TypeCaches.BindableTypes.Contains(fieldInfo.FieldType)) continue;
                 var displayName = fieldInfo.Name + "\t\t" + fieldInfo.FieldType.Name;
                 menu.AddItem(new GUIContent(prefix + displayName), fieldInfo.Name == property.stringValue, () =>
@@ -236,12 +239,7 @@ namespace Aya.DataBinding
                     return (propertyInfo.Name, propertyInfo.PropertyType.Name);
                 }
 
-                if (filedInfo != null)
-                {
-                    return (filedInfo.Name, filedInfo.FieldType.Name);
-                }
-
-                return (EditorStyle.NoneStr, "");
+                return filedInfo != null ? (filedInfo.Name, filedInfo.FieldType.Name) : (EditorStyle.NoneStr, "");
             }
 
             var (currentPropertyName, currentPropertyTypeName) = GetCurrentPropertyInfo();
@@ -328,7 +326,52 @@ namespace Aya.DataBinding
             GUILayout.EndVertical();
             var rect = GUILayoutUtility.GetLastRect();
             EditorGUI.DrawRect(rect, color);
-        } 
+        }
+
+        #endregion
+
+        #region Enum
+
+        public static void DrawToolbarEnum(SerializedProperty property, Type enumType)
+        {
+            DrawToolbarEnum(property, property.displayName, enumType);
+        }
+
+        public static void DrawToolbarEnum(SerializedProperty property, string propertyName, Type enumType)
+        {
+            property.intValue = DrawToolbarEnum(property.intValue, propertyName, enumType);
+        }
+
+        public static int DrawToolbarEnum(int value, string propertyName, Type enumType)
+        {
+            using (GUIHorizontal.Create())
+            {
+                GUILayout.Label(propertyName, EditorStyles.label, GUILayout.Width(EditorGUIUtility.labelWidth));
+                var buttons = Enum.GetNames(enumType);
+                var style = EditorStyles.miniButton;
+                style.margin = new RectOffset();
+                var rect = EditorGUILayout.GetControlRect(false, EditorGUIUtility.singleLineHeight, style);
+                var btnWidth = rect.width / buttons.Length;
+                for (var i = 0; i < buttons.Length; i++)
+                {
+                    var button = buttons[i];
+                    var index = i;
+                    var btnRect = rect;
+                    btnRect.x += i * btnWidth;
+                    btnRect.width = btnWidth;
+                    using (GUIColorArea.Create(Color.white, Color.gray * 1.5f, value == index))
+                    {
+                        var btn = GUI.Button(btnRect, button, style);
+                        if (btn)
+                        {
+                            return index;
+                        }
+                    }
+                }
+            }
+
+            return value;
+        }
 
         #endregion
     }
