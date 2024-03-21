@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aya.Sample;
+using System;
 using System.Reflection;
 
 namespace Aya.DataBinding
@@ -170,7 +171,8 @@ namespace Aya.DataBinding
 
         public static RuntimePropertyBinder Bind(string container, string key, DataDirection direction, object target, string propertyName)
         {
-            var (propertyInfo, fieldInfo) = TypeCaches.GetTypePropertyOrFieldByName(target.GetType(), propertyName);
+            var type = target.GetType();
+            var (propertyInfo, fieldInfo) = TypeCaches.GetTypePropertyOrFieldByName(type, propertyName);
             return Bind(container, key, direction, target, propertyInfo, fieldInfo);
         }
 

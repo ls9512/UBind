@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using Aya.DataBinding;
 
 namespace Aya.Sample
 {
+    [Serializable]
     public class UBindSamplePlayerData
     {
         public string Name;
@@ -19,8 +21,17 @@ namespace Aya.Sample
         public void Awake()
         {
             Player = new UBindSamplePlayerData() {Name = "Player",};
+
+            // Source
             UBind.BindSource("PlayerData", Player);
-            StartCoroutine(_test());
+
+            // Manual Both
+            // UBind.BindBoth(nameof(UBindSamplePlayerData) + "." + nameof(Player.Name) + ".PlayerData", Player, nameof(Player.Name));
+            // UBind.BindBoth(nameof(UBindSamplePlayerData) + "." + nameof(Player.Exp) + ".PlayerData", Player, nameof(Player.Exp));
+            // UBind.BindBoth(nameof(UBindSamplePlayerData) + "." + nameof(Player.Stat) + ".PlayerData", Player, nameof(Player.Stat));
+            // UBind.BindBoth(nameof(UBindSamplePlayerData) + "." + nameof(Player.PlayTime) + ".PlayerData", Player, nameof(Player.PlayTime));
+
+            // StartCoroutine(_test());
         }
 
         IEnumerator _test()

@@ -11,13 +11,7 @@ namespace Aya.DataBinding
 
         public RuntimePropertyBinder(string container, string key, DataDirection direction, object target, PropertyInfo propertyInfo, FieldInfo fieldInfo)
         {
-            Container = container;
-            Key = key;
-            Direction = direction;
-            Target = target;
-            PropertyInfo = propertyInfo;
-            FiledInfo = fieldInfo;
-
+            // var type = target.GetType();
             if (propertyInfo != null)
             {
                 Property = propertyInfo.Name;
@@ -27,6 +21,14 @@ namespace Aya.DataBinding
             {
                 Property = fieldInfo.Name;
             }
+
+            // var bindKey = type.Name + "." + Property + "." + key;
+            Container = container;
+            Key = key;
+            Direction = direction;
+            Target = target;
+            PropertyInfo = propertyInfo;
+            FiledInfo = fieldInfo;
         }
     }
 }
