@@ -34,18 +34,18 @@ namespace Aya.DataBinding
 
         protected void DrawDirection(SerializedProperty property)
         {
-            EditorUtil.DrawToolbarEnum(property, typeof(DataDirection));
+            GUIUtil.DrawToolbarEnum(property, typeof(DataDirection));
         }
 
         protected void DrawTarget<TComponent>(SerializedProperty property, Transform root) where TComponent : Component
         {
-            EditorUtil.ComponentTreeMenu<TComponent>("Target", property, root);
+            GUIMenu.ComponentTreeMenu<TComponent>("Target", property, root);
         }
 
         public static void DrawTargetAndProperty<TComponent>(string targetPropertyName, SerializedProperty targetProperty, Transform parent, string propertyName, SerializedProperty property) where TComponent : Component
         {
             var originalTarget = targetProperty.objectReferenceValue;
-            EditorUtil.ComponentTreeMenu<TComponent>(targetPropertyName, targetProperty, parent, component =>
+            GUIMenu.ComponentTreeMenu<TComponent>(targetPropertyName, targetProperty, parent, component =>
             {
                 // Auto Bind
                 var change = originalTarget != targetProperty.objectReferenceValue && targetProperty.objectReferenceValue != null;
@@ -65,7 +65,7 @@ namespace Aya.DataBinding
             if (targetProperty.objectReferenceValue != null)
             {
                 var type = targetProperty.objectReferenceValue.GetType();
-                EditorUtil.PropertyTreeMenu(propertyName, type, property);
+                GUIMenu.DrawPropertyMenu(null, targetProperty.objectReferenceValue.GetType(), propertyName, property);
             }
         }
     }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Aya.DataBinding
 {
-    public static class EditorUtil
+    public static class GUIUtil
     {
         #region Assembly & Type
 
@@ -95,167 +95,6 @@ namespace Aya.DataBinding
             }
 
             SearchableDropdownList(propertyName, root, CheckNullFunc, ResetFunc, CurrentDisplayNameGetter, OnClick);
-        }
-
-        #endregion
-
-        #region Components Tree Menu
-
-        public static SearchableDropdownItem CreateComponentsTreeMenu<TComponent>(Transform parent) where TComponent : Component
-        {
-            var root = new SearchableDropdownItem(typeof(TComponent).Name);
-            root.AddChild(new SearchableDropdownItem(EditorStyle.NoneStr, null));
-            root.AddSeparator();
-            CreateComponentsTreeMenuRecursion<TComponent>(root, parent, "");
-            return root;
-        }
-
-        private static void CreateComponentsTreeMenuRecursion<TComponent>(SearchableDropdownItem root, Transform parent, string path) where TComponent : Component
-        {
-            var components = parent.GetComponents<TComponent>();
-            for (var i = 0; i < components.Length; i++)
-            {
-                var component = components[i];
-                var componentName = component.GetType().Name;
-                var child = new SearchableDropdownItem(path + componentName, component)
-                {
-                    icon = EditorGUIUtility.ObjectContent(component, component.GetType()).image as Texture2D
-                };
-
-                root.AddChild(child);
-            }
-
-            if (parent.childCount <= 0) return;
-            root.AddSeparator();
-            for (var i = 0; i < parent.childCount; i++)
-            {
-                var childTrans = parent.GetChild(i);
-                CreateComponentsTreeMenuRecursion<TComponent>(root, childTrans, path + childTrans.name + " \\ ");
-            }
-        }
-
-        public static void ComponentTreeMenu<TComponent>(string propertyName,  SerializedProperty property, Transform parent, Action<TComponent> onClick = null) where TComponent : Component
-        {
-            var menu = CreateComponentsTreeMenu<TComponent>(parent);
-            void OnClick(SearchableDropdownItem item)
-            {
-                TComponent target = null;
-                if (item.Value == null)
-                {
-                    property.objectReferenceValue = null;
-                }
-                else
-                {
-                    target = item.Value as TComponent;
-                    property.objectReferenceValue = target;
-                }
-
-                property.serializedObject.ApplyModifiedProperties();
-                onClick?.Invoke(target);
-            }
-
-            SearchableComponentDropdownList<TComponent>(propertyName, property, menu, OnClick);
-        }
-
-        public static void SearchableComponentDropdownList<TComponent>(string propertyName, SerializedProperty property, SearchableDropdownItem root, Action<SearchableDropdownItem> onClick = null) where TComponent : Component
-        {
-            using (new ColorScope(EditorStyle.ErrorColor, () => property.objectReferenceValue == null))
-            {
-                GUILayout.BeginHorizontal();
-                GUILayout.Label(propertyName, GUILayout.Width(EditorGUIUtility.labelWidth));
-                property.objectReferenceValue = EditorGUILayout.ObjectField(property.objectReferenceValue, typeof(TComponent), true);
-                var btnRect = GUILayoutUtility.GetLastRect();
-                var btnType = GUILayout.Button("▽", EditorStyles.popup, GUILayout.Width(EditorGUIUtility.singleLineHeight));
-                if (btnType)
-                {
-                    btnRect.width = EditorGUIUtility.currentViewWidth;
-                    var dropdown = new SearchableDropdown(root, onClick);
-                    dropdown.Show(btnRect, 300f);
-                }
-
-                GUILayout.EndHorizontal();
-            }
-        }
-
-        #endregion
-
-        #region Type Property Menu
-
-        public static GenericMenu CreatePropertyMenu(Type type, SerializedProperty property, Action<PropertyInfo> onClickProperty = null, Action<FieldInfo> onClickField = null)
-        {
-            var menu = new GenericMenu();
-            menu.AddItem(new GUIContent(EditorStyle.NoneStr), string.IsNullOrEmpty(property.stringValue), () =>
-            {
-                property.stringValue = "";
-                property.serializedObject.ApplyModifiedProperties();
-            });
-            menu.AddSeparator("");
-
-            var propertyInfos = TypeCaches.GetTypeProperties(type);
-            var prefix = "Property/";
-            for (var i = 0; i < propertyInfos.Count; i++)
-            {
-                var propertyInfo = propertyInfos[i];
-                // if (!TypeCaches.BindableTypes.Contains(propertyInfo.PropertyType)) continue;
-                var displayName = propertyInfo.Name + "\t\t" + propertyInfo.PropertyType.Name;
-                menu.AddItem(new GUIContent(prefix + displayName), propertyInfo.Name == property.stringValue, () =>
-                {
-                    property.stringValue = propertyInfo.Name;
-                    property.serializedObject.ApplyModifiedProperties();
-                    onClickProperty?.Invoke(propertyInfo);
-                });
-            }
-
-            var filedInfos = TypeCaches.GetTypeFields(type);
-            prefix = "Field/";
-            for (var i = 0; i < filedInfos.Count; i++)
-            {
-                var fieldInfo = filedInfos[i];
-                // if (!TypeCaches.BindableTypes.Contains(fieldInfo.FieldType)) continue;
-                var displayName = fieldInfo.Name + "\t\t" + fieldInfo.FieldType.Name;
-                menu.AddItem(new GUIContent(prefix + displayName), fieldInfo.Name == property.stringValue, () =>
-                {
-                    property.stringValue = fieldInfo.Name;
-                    property.serializedObject.ApplyModifiedProperties();
-                    onClickField?.Invoke(fieldInfo);
-                });
-            }
-
-            return menu;
-        }
-
-        public static void PropertyTreeMenu(string propertyName, Type type, SerializedProperty property, Action<PropertyInfo> onClickProperty = null, Action<FieldInfo> onClickField = null)
-        {
-            var menu = CreatePropertyMenu(type, property, onClickProperty, onClickField);
-            bool CheckNullFunc() => !TypeCaches.CheckTypeHasPropertyOrFieldByName(type, property.stringValue);
-            void ResetFunc() => property.stringValue = null;
-
-            (string currentPropertyName, string currentPropertyTypeName) GetCurrentPropertyInfo()
-            {
-                if (string.IsNullOrEmpty(property.stringValue)) return (EditorStyle.NoneStr, "");
-                var (propertyInfo, filedInfo) = TypeCaches.GetTypePropertyOrFieldByName(type, property.stringValue);
-                if (propertyInfo != null)
-                {
-                    return (propertyInfo.Name, propertyInfo.PropertyType.Name);
-                }
-
-                return filedInfo != null ? (filedInfo.Name, filedInfo.FieldType.Name) : (EditorStyle.NoneStr, "");
-            }
-
-            var (currentPropertyName, currentPropertyTypeName) = GetCurrentPropertyInfo();
-
-            string CurrentDisplayNameGetter()
-            {
-                return currentPropertyName;
-            }
-
-            if (!string.IsNullOrEmpty(currentPropertyTypeName))
-            {
-                currentPropertyTypeName = " <color=#888888>(" + currentPropertyTypeName + ")</color>";
-            }
-
-            var displayPropertyName = propertyName + currentPropertyTypeName;
-            DropdownList(displayPropertyName, menu, CheckNullFunc, ResetFunc, CurrentDisplayNameGetter);
         }
 
         #endregion
@@ -372,6 +211,27 @@ namespace Aya.DataBinding
 
             return value;
         }
+
+        #endregion
+
+        #region Button
+      
+        public static bool DrawSearchMenuButton()
+        {
+            var button = DrawIconButton("Search Icon", "Search");
+            return button;
+        }
+
+        public static bool DrawIconButton(string iconName, string toolTip = "")
+        {
+            var content = new GUIContent(EditorGUIUtility.IconContent(iconName))
+            {
+                tooltip = toolTip
+            };
+
+            var button = GUILayout.Button(content, EditorStyles.miniButtonMid, GUILayout.Width(EditorGUIUtility.singleLineHeight));
+            return button;
+        } 
 
         #endregion
     }

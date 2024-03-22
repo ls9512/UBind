@@ -39,8 +39,8 @@ namespace Aya.DataBinding
             DrawDataKey(DataKeyProperty);
             DrawDirection(DirectionProperty);
 
-            EditorUtil.AssemblyMenu("Assembly", AssemblyProperty);
-            EditorUtil.TypeMenu("Type", TypeProperty, AssemblyProperty.stringValue);
+            GUIUtil.AssemblyMenu("Assembly", AssemblyProperty);
+            GUIUtil.TypeMenu("Type", TypeProperty, AssemblyProperty.stringValue);
 
             var currentType = TypeCaches.GetTypeByName(AssemblyProperty.stringValue, TypeProperty.stringValue);
             if (currentType != null)
@@ -78,7 +78,7 @@ namespace Aya.DataBinding
                                 var componentProperty = itemProperty.FindPropertyRelative("Target");
                                 var targetPropertyProperty = itemProperty.FindPropertyRelative("TargetProperty");
 
-                                EditorUtil.PropertyTreeMenu("Source Prop", currentType, propertyProperty);
+                                GUIMenu.DrawPropertyMenu(null, currentType, "Source Prop", propertyProperty);
                                 DrawTargetAndProperty<Component>("Target", componentProperty, TypeBinder.transform, "Target Prop", targetPropertyProperty);
                             }
 
@@ -90,7 +90,7 @@ namespace Aya.DataBinding
                         }
                     }
 
-                    EditorUtil.ColorLine(EditorStyle.SplitLineColor, 2);
+                    GUIUtil.ColorLine(EditorStyle.SplitLineColor, 2);
                 }
 
                 if (GUILayout.Button("＋"))

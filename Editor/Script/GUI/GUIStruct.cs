@@ -200,5 +200,29 @@ namespace Aya.DataBinding
             GUI.color = OriginalColor;
         }
     }
+
+    public struct GUIErrorColorArea : IDisposable
+    {
+        public Color OriginalColor;
+
+        public static GUIErrorColorArea Create(bool check = true)
+        {
+            return new GUIErrorColorArea(check);
+        }
+
+        public GUIErrorColorArea(bool check = true)
+        {
+            OriginalColor = GUI.color;
+            if (check)
+            {
+                GUI.color = new Color(1f, 0.5f, 0.5f);
+            }
+        }
+
+        public void Dispose()
+        {
+            GUI.color = OriginalColor;
+        }
+    }
 }
 #endif

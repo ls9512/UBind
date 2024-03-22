@@ -26,7 +26,7 @@ namespace Aya.DataBinding
             }
 
             var type = PropertyBinder.Target.GetType();
-            EditorUtil.PropertyTreeMenu("Dst Property", type, PropertyNameProperty);
+            GUIMenu.DrawPropertyMenu(null, PropertyBinder.Target.GetType(), "Property", PropertyNameProperty);
         }
     }
 }

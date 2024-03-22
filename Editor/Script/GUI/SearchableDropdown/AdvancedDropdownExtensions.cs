@@ -1,43 +1,10 @@
-﻿#if UNITY_EDITOR
-using System;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
 namespace Aya.DataBinding
 {
-    public class SearchableDropdownItem : AdvancedDropdownItem
-    {
-        public object Value;
-
-        public SearchableDropdownItem(string name, object value = null) : base(name)
-        {
-            Value = value;
-        }
-    }
-
-    public class SearchableDropdown : AdvancedDropdown
-    {
-        public SearchableDropdownItem Root;
-        public Action<SearchableDropdownItem> OnSelected;
-
-        public SearchableDropdown(SearchableDropdownItem root, Action<SearchableDropdownItem> onSelected = null) : base(new AdvancedDropdownState())
-        {
-            Root = root;
-            OnSelected = onSelected;
-        }
-
-        protected override AdvancedDropdownItem BuildRoot()
-        {
-            return Root;
-        }
-
-        protected override void ItemSelected(AdvancedDropdownItem item)
-        {
-            OnSelected?.Invoke(item as SearchableDropdownItem);
-        }
-    }
-
     public static class AdvancedDropdownExtensions
     {
         public static void Show(this AdvancedDropdown dropdown, Rect buttonRect, float maxHeight)
@@ -75,6 +42,5 @@ namespace Aya.DataBinding
             window.ShowAsDropDown(GUIUtility.GUIToScreenRect(buttonRect), position.size);
         }
     }
-
 }
 #endif
