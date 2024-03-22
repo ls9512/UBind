@@ -2,7 +2,7 @@
   "name": "com.ls9512.ubind",
   "displayName": "UBind",
   "description": "UBind is a value binding component for Unity, which is used to quickly realize the association binding between UI and logical data.",
-  "version": "2024.2.26",
+  "version": "2024.3.22",
   "unity": "2019.4",
   "license": "MIT",
   "repository": {
