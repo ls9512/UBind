@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Aya.DataBinding
 {
-    [AddComponentMenu("Data Binding/Scrollbar Binder")]
+    [AddComponentMenu(UBind.AddComponentMenuPath + "/Scrollbar Binder")]
     public class ScrollbarBinder : ComponentBinder<Scrollbar, float, RuntimeScrollbarBinder>
     {
         

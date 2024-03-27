@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Aya.DataBinding
 {
-    [AddComponentMenu("Data Binding/Slider Binder")]
+    [AddComponentMenu(UBind.AddComponentMenuPath + "/Slider Binder")]
     public class SliderBinder : ComponentBinder<Slider, float, RuntimeSliderBinder>
     {
         

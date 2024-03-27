@@ -14,7 +14,7 @@
 ![last](https://img.shields.io/github/last-commit/ls9512/UBind)
 [![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 
-[![issue](https://img.shields.io/github/issues/ls9512/UTween)](https://github.com/ls9512/UBind/issues)
+[![issue](https://img.shields.io/github/issues/ls9512/UBind)](https://github.com/ls9512/UBind/issues)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/ls9512/UBind/pulls)
 [![Updates](https://img.shields.io/badge/Platform-%20iOS%20%7C%20OS%20X%20%7C%20Android%20%7C%20Windows%20%7C%20Linux%20-brightgreen.svg)](https://github.com/ls9512/UBind)
 

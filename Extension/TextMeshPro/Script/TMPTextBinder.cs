@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Aya.DataBinding
 {
-    [AddComponentMenu("Data Binding/TMP Text Binder")]
+    [AddComponentMenu(UBind.AddComponentMenuPath + "/TMP Text Binder")]
     public class TMPTextBinder : ComponentBinder<TMP_Text, string, RuntimeTMPTextBinder>
     {
         public override bool NeedUpdate => true;

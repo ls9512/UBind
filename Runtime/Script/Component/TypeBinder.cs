@@ -12,7 +12,7 @@ namespace Aya.DataBinding
         public string TargetProperty;
     }
 
-    [AddComponentMenu("Data Binding/Type Binder")]
+    [AddComponentMenu(UBind.AddComponentMenuPath + "/Type Binder")]
     public class TypeBinder : MonoBehaviour
     {
         public string Container = DataContainer.Default;

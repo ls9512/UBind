@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Aya.DataBinding
 {
-    [AddComponentMenu("Data Binding/Color Binder")]
+    [AddComponentMenu(UBind.AddComponentMenuPath + "/Color Binder")]
     public class ColorBinder : ComponentBinder<Graphic, Color, RuntimeColorBinder>
     {
         public override bool NeedUpdate => true;

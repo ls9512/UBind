@@ -2,7 +2,7 @@
 
 namespace Aya.DataBinding
 {
-    [AddComponentMenu("Data Binding/Property Binder")]
+    [AddComponentMenu(UBind.AddComponentMenuPath + "/Property Binder")]
     public class PropertyBinder : ComponentBinder<Component, object, RuntimePropertyBinder<Component>>
     {
         public override bool NeedUpdate => true;

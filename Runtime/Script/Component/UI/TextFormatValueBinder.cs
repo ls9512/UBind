@@ -6,7 +6,7 @@ using UnityEditor;
 
 namespace Aya.DataBinding
 {
-    [AddComponentMenu("Data Binding/Text Format Value Binder")]
+    [AddComponentMenu(UBind.AddComponentMenuPath + "/Text Format Value Binder")]
     public class TextFormatValueBinder : ComponentBinder<Text, float, RuntimeTextFormatValueBinder>
     {
         public override bool NeedUpdate => true;

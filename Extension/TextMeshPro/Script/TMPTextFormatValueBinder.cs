@@ -6,7 +6,7 @@ using UnityEditor;
 
 namespace Aya.DataBinding
 {
-    [AddComponentMenu("Data Binding/TMP Text Format Value Binder")]
+    [AddComponentMenu(UBind.AddComponentMenuPath + "/TMP Text Format Value Binder")]
     public class TMPTextFormatValueBinder : ComponentBinder<TMP_Text, float, RuntimeTMPTextFormatValueBinder>
     {
         public override bool NeedUpdate => true;

@@ -2,7 +2,7 @@
 
 namespace Aya.DataBinding
 {
-    [AddComponentMenu("Data Binding/CanvasGroup Binder")]
+    [AddComponentMenu(UBind.AddComponentMenuPath + "/CanvasGroup Binder")]
     public class CanvasGroupBinder : ComponentBinder<CanvasGroup, float, RuntimeCanvasGroupBinder>
     {
         public override bool NeedUpdate => true;

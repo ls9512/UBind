@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Aya.DataBinding
 {
-    [AddComponentMenu("Data Binding/Text FontSize Binder")]
+    [AddComponentMenu(UBind.AddComponentMenuPath + "/Text FontSize Binder")]
     public class TextFontSizeBinder : ComponentBinder<Text, int, RuntimeTextFontSizeBinder>
     {
         public override bool NeedUpdate => true;

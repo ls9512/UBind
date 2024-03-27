@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Aya.DataBinding
 {
-    [AddComponentMenu("Data Binding/Dropdown List Binder")]
+    [AddComponentMenu(UBind.AddComponentMenuPath + "/Dropdown List Binder")]
     public class DropdownListBinder : ComponentBinder<Dropdown, List<Dropdown.OptionData>, RuntimeDropdownListBinder>
     {
         public override bool NeedUpdate => true;

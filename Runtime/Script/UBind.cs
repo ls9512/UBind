@@ -1,11 +1,12 @@
-﻿using Aya.Sample;
-using System;
+﻿using System;
 using System.Reflection;
 
 namespace Aya.DataBinding
 {
     public static class UBind
     {
+        public const string AddComponentMenuPath = nameof(UBind);
+
         #region Converter
 
         public static void RegisterConverter(Type sourceType, Type targetType, DataConverter dataConverter)

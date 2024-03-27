@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Aya.DataBinding
 {
-    [AddComponentMenu("Data Binding/Toggle Binder")]
+    [AddComponentMenu(UBind.AddComponentMenuPath + "/Toggle Binder")]
     public class ToggleBinder : ComponentBinder<Toggle, bool, ToggleDataBinder>
     {
 
